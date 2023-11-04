@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace bsch2_timetable.Views
+namespace Timetable.Views
 {
     public partial class MainWindow : Window
     {

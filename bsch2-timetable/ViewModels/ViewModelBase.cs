@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace bsch2_timetable.ViewModels
+namespace Timetable.ViewModels
 {
     public class ViewModelBase : ObservableObject
     {

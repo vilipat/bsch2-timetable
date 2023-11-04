@@ -1,4 +1,4 @@
-﻿namespace bsch2_timetable.ViewModels
+﻿namespace Timetable.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

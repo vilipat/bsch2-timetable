@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using bsch2_timetable.ViewModels;
+using Timetable.ViewModels;
 using System;
 
-namespace bsch2_timetable
+namespace Timetable
 {
     public class ViewLocator : IDataTemplate
     {

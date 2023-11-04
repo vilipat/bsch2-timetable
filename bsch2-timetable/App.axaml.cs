@@ -3,10 +3,10 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using bsch2_timetable.ViewModels;
-using bsch2_timetable.Views;
+using Timetable.ViewModels;
+using Timetable.Views;
 
-namespace bsch2_timetable
+namespace Timetable
 {
     public partial class App : Application
     {

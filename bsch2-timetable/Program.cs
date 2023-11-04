@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace bsch2_timetable
+namespace Timetable
 {
     internal class Program
     {
