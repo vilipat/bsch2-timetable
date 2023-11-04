@@ -12,24 +12,16 @@ namespace Timetable.Models
         private string firstName = string.Empty;
         public string FirstName
         {
-            get { return firstName; }
-
-            set
-            {
-                firstName = value;
-            }
+            get => firstName;
+            set => SetProperty(ref firstName, value);
         }
 
 
         private string lastName = string.Empty;
         public string LastName
         {
-            get { return lastName; }
-
-            set
-            {
-                lastName = value;
-            }
+            get => lastName;
+            set=> SetProperty(ref lastName, value);
         }
 
         public ObservableCollection<Activity> Activities { get; set; } = new();

@@ -12,41 +12,29 @@ namespace Timetable.Models
         private string title = string.Empty;
         public string Title
         {
-            get { return title; }
-            set
-            {
-                title = value;
-            }
+            get => title;
+            set => SetProperty(ref title, value);
         }
 
         private string description = string.Empty;
         public string Description
         {
-            get { return description; }
-            set
-            {
-                description = value;
-            }
+            get => description;
+            set => SetProperty(ref description, value);
         }
 
         private TimeSpan start;
         public TimeSpan Start
         {
-            get { return start; }
-            set
-            {
-                start = value;
-            }
+            get => start;
+            set => SetProperty(ref start, value);
         }
 
         private TimeSpan end;
         public TimeSpan End
         {
-            get { return end; }
-            set
-            {
-                end = value;
-            }
+            get => end;
+            set => SetProperty(ref  end, value);
         }
 
 
