@@ -23,21 +23,6 @@ namespace Timetable.Models
             set => SetProperty(ref description, value);
         }
 
-        private TimeSpan start;
-        public TimeSpan Start
-        {
-            get => start;
-            set => SetProperty(ref start, value);
-        }
-
-        private TimeSpan end;
-        public TimeSpan End
-        {
-            get => end;
-            set => SetProperty(ref  end, value);
-        }
-
-
-        public ObservableCollection<Person> Persons { get; set; } = new();
+        public List<ActivitySlot> ActivitySlots { get; } = new();
     }
 }

@@ -21,9 +21,9 @@ namespace Timetable.Models
         public string LastName
         {
             get => lastName;
-            set=> SetProperty(ref lastName, value);
+            set => SetProperty(ref lastName, value);
         }
 
-        public ObservableCollection<Activity> Activities { get; set; } = new();
+        public ObservableCollection<ActivitySlot> ActivitySlots { get; set; } = new();
     }
 }
