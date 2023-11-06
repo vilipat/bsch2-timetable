@@ -6,6 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Timetable.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+        xmlns:local="clr-namespace:Timetable.Views;assembly=Timetable"
         Icon="/Assets/avalonia-logo.ico"
         Title="Timetable">
 
@@ -15,6 +16,14 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+  <TabControl>
+    <TabItem Header="Persons" >
+      <local:PersonsView />
+    </TabItem>
+    <TabItem Header="Activites" >
+      <local:ActivitiesView />
+    </TabItem>
+  </TabControl>
+  
 
 </Window>
