@@ -8,14 +8,15 @@ using Timetable.Models;
 
 namespace Timetable.ViewModels.Design
 {
-    internal class PersonsDesign
+    public class PersonsDesign
     {
-
-
         internal ObservableCollection<Person> Items { get; set; } = new()
             {
                 new Person { Id = 1, FirstName = "John", LastName = "Lenon" },
                 new Person { Id = 2, FirstName = "Joe", LastName = "Doe" },
             };
+
+        internal Person SelectedItem { get; set; } = new() { Id = 1, FirstName = "John", LastName = "Lenon" };
+
     }
 }

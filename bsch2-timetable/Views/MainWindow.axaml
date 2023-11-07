@@ -8,7 +8,8 @@
         x:DataType="vm:MainWindowViewModel"
         xmlns:local="clr-namespace:Timetable.Views;assembly=Timetable"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Timetable">
+        Title="Timetable"
+        >
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -16,18 +17,18 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-  <StackPanel>
-    <TabControl>
+    <TabControl VerticalAlignment="Stretch">
+      
       <TabItem Header="Persons" >
-
         <local:PersonsView />
       </TabItem>
+      
       <TabItem Header="Activites" >
         <local:ActivitiesView />
       </TabItem>
+    
     </TabControl>
 
-  </StackPanel>
 
 
 </Window>

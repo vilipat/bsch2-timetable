@@ -15,6 +15,12 @@ namespace Timetable.ViewModels
 
         }
 
-        internal ObservableCollection<Person> Items { get; set; }
+        internal ObservableCollection<Person> Items { get; set; } = new()
+            {
+                new Person { Id = 1, FirstName = "John", LastName = "Lenon" },
+                new Person { Id = 2, FirstName = "Joe", LastName = "Doe" },
+            };
+
+        internal Person SelectedItem { get; set; } = new();
     }
 }

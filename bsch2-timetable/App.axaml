@@ -12,5 +12,63 @@
         <FluentTheme />
       
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+
+      <!-- Datagrid -->
+      <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+      <!--Hide cell black rectangle-->
+      <Style Selector="DataGridCell Rectangle">
+        <Setter Property="IsVisible" Value="False"></Setter>
+      </Style>
+
+      <!-- Buttons -->
+
+      <!-- Control button -->
+      <Style Selector="Button.control">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Width" Value="85"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      </Style>
+
+      <Style Selector="Button:pointerover">
+        <Setter Property="Cursor" Value="Hand"/>
+      </Style>
+
+      <!-- primary -->
+      <Style Selector="Button.btn-prim">
+        <Setter Property="Background" Value="DodgerBlue" />
+        <!--Value="{StaticResource AccentButtonBackground}"-->
+      </Style>
+      <Style Selector="Button.btn-prim:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#4BA6FF" />
+        <!--Value="{StaticResource AccentButtonBackgroundPointerOver}"-->
+      </Style>
+
+      <!-- add (green btn) -->
+      <Style Selector="Button.btn-add">
+        <Setter Property="Background" Value="LimeGreen" />
+      </Style>
+      <Style Selector="Button.btn-add:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#6fdc6f"/>
+      </Style>
+
+      <!-- delete (red btn) -->
+      <Style Selector="Button.btn-del">
+        <Setter Property="Background" Value="Crimson"/>
+      </Style>
+      <Style Selector="Button.btn-del:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#f05070"/>
+      </Style>
+
+      <!-- CRUD buttons -->
+      <Style Selector="Button.crud">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="MinWidth" Value="85"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      </Style>
+    
     </Application.Styles>
 </Application>

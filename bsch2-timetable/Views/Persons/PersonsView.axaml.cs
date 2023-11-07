@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Timetable.ViewModels;
 
 namespace Timetable.Views
 {
@@ -7,6 +8,7 @@ namespace Timetable.Views
         public PersonsView()
         {
             InitializeComponent();
+            DataContext = new PersonsViewModel();
         }
     }
 }
