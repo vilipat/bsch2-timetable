@@ -3,7 +3,39 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:Timetable.ViewModels;assembly=Timetable"
+             xmlns:vmdesign="clr-namespace:Timetable.ViewModels.Design;assembly=Timetable"
+             x:DataType="vm:PersonsViewModel"
              x:Class="Timetable.Views.PersonsView">
 
-  Persons Tab
+  <Design.DataContext>
+    <vmdesign:PersonsDesign />
+  </Design.DataContext>
+
+  <StackPanel>
+    <Separator/>
+
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="200" Width="200" />
+        <ColumnDefinition Width="4" />
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+
+      <DataGrid ItemsSource="{Binding Items}" SelectionMode="Single"
+            IsReadOnly="True" CanUserResizeColumns="True"
+            GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Jmeno" Binding="{Binding FirstName}" />
+          <DataGridTextColumn Header="Prijmeni" Binding="{Binding LastName}" />
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <GridSplitter Grid.Column="1" Background="LightGray" ResizeDirection="Columns"/>
+
+    </Grid>
+    
+  </StackPanel>
+
+
 </UserControl>

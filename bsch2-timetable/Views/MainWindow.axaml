@@ -16,14 +16,18 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-  <TabControl>
-    <TabItem Header="Persons" >
-      <local:PersonsView />
-    </TabItem>
-    <TabItem Header="Activites" >
-      <local:ActivitiesView />
-    </TabItem>
-  </TabControl>
-  
+  <StackPanel>
+    <TabControl>
+      <TabItem Header="Persons" >
+
+        <local:PersonsView />
+      </TabItem>
+      <TabItem Header="Activites" >
+        <local:ActivitiesView />
+      </TabItem>
+    </TabControl>
+
+  </StackPanel>
+
 
 </Window>
