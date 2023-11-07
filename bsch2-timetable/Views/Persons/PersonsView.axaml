@@ -40,18 +40,7 @@
 
     <DockPanel Grid.Column="2"  Grid.Row="1">
 
-      <StackPanel DockPanel.Dock="Bottom" MinHeight="35" Height="35" Margin="10" Spacing="10" Orientation="Horizontal" >
-
-        <Button IsVisible="True"
-                Classes="btn-add crud" Content="New"/>
-
-        <Button IsVisible="True"
-                Classes="crud" Content="Edit" />
-
-        <Button IsVisible="True"
-                Classes="btn-del crud" Content="Delete" />
-
-      </StackPanel>
+      <components:CrudMenu DockPanel.Dock="Bottom"  />
 
       <StackPanel Margin="10" HorizontalAlignment="Left">
         <Label Content="First Name" />
@@ -59,8 +48,8 @@
 
         <Label Content="Last Name" />
         <TextBox Width="200" Text="{Binding SelectedItem.LastName}"/>
-
       </StackPanel>
+
     </DockPanel>
 
 

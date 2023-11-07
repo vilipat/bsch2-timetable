@@ -12,6 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Assets\Resources.cs-CZ.resx" />
+    <EmbeddedResource Remove="Assets\Resources.en-US.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
   </ItemGroup>
 
@@ -32,5 +37,11 @@
 
   <ItemGroup>
     <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Components\CrudMenu.axaml.cs">
+      <DependentUpon>CrudMenu.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

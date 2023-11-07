@@ -4,71 +4,70 @@
              x:Class="Timetable.App"
              RequestedThemeVariant="Light" >
 
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
+  <Application.DataTemplates>
+    <local:ViewLocator/>
+  </Application.DataTemplates>
 
-    <Application.Styles>
-        <FluentTheme />
-      
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+  <Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="/Views/Components/CrudMenu.axaml"/>
 
-      <!-- Datagrid -->
-      <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
-      <!--Hide cell black rectangle-->
-      <Style Selector="DataGridCell Rectangle">
-        <Setter Property="IsVisible" Value="False"></Setter>
-      </Style>
+    <!-- Datagrid -->
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+    <!--Hide cell black rectangle-->
+    <Style Selector="DataGridCell Rectangle">
+      <Setter Property="IsVisible" Value="False"></Setter>
+    </Style>
 
-      <!-- Buttons -->
+    <!-- Buttons -->
 
-      <!-- Control button -->
-      <Style Selector="Button.control">
-        <Setter Property="Height" Value="35"/>
-        <Setter Property="Width" Value="85"/>
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-      </Style>
+    <!-- Control button -->
+    <Style Selector="Button.control">
+      <Setter Property="Height" Value="35"/>
+      <Setter Property="Width" Value="85"/>
+      <Setter Property="FontSize" Value="18"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
 
-      <Style Selector="Button:pointerover">
-        <Setter Property="Cursor" Value="Hand"/>
-      </Style>
+    <Style Selector="Button:pointerover">
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
 
-      <!-- primary -->
-      <Style Selector="Button.btn-prim">
-        <Setter Property="Background" Value="DodgerBlue" />
-        <!--Value="{StaticResource AccentButtonBackground}"-->
-      </Style>
-      <Style Selector="Button.btn-prim:pointerover /template/ ContentPresenter">
-        <Setter Property="Background" Value="#4BA6FF" />
-        <!--Value="{StaticResource AccentButtonBackgroundPointerOver}"-->
-      </Style>
+    <!-- primary -->
+    <Style Selector="Button.btn-prim">
+      <Setter Property="Background" Value="DodgerBlue" />
+      <!--Value="{StaticResource AccentButtonBackground}"-->
+    </Style>
+    <Style Selector="Button.btn-prim:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#4BA6FF" />
+      <!--Value="{StaticResource AccentButtonBackgroundPointerOver}"-->
+    </Style>
 
-      <!-- add (green btn) -->
-      <Style Selector="Button.btn-add">
-        <Setter Property="Background" Value="LimeGreen" />
-      </Style>
-      <Style Selector="Button.btn-add:pointerover /template/ ContentPresenter">
-        <Setter Property="Background" Value="#6fdc6f"/>
-      </Style>
+    <!-- add (green btn) -->
+    <Style Selector="Button.btn-add">
+      <Setter Property="Background" Value="LimeGreen" />
+    </Style>
+    <Style Selector="Button.btn-add:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#6fdc6f"/>
+    </Style>
 
-      <!-- delete (red btn) -->
-      <Style Selector="Button.btn-del">
-        <Setter Property="Background" Value="Crimson"/>
-      </Style>
-      <Style Selector="Button.btn-del:pointerover /template/ ContentPresenter">
-        <Setter Property="Background" Value="#f05070"/>
-      </Style>
+    <!-- delete (red btn) -->
+    <Style Selector="Button.btn-del">
+      <Setter Property="Background" Value="Crimson"/>
+    </Style>
+    <Style Selector="Button.btn-del:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#f05070"/>
+    </Style>
 
-      <!-- CRUD buttons -->
-      <Style Selector="Button.crud">
-        <Setter Property="Height" Value="35"/>
-        <Setter Property="MinWidth" Value="85"/>
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-      </Style>
-    
-    </Application.Styles>
+    <!-- CRUD buttons -->
+    <Style Selector="Button.crud">
+      <Setter Property="Height" Value="35"/>
+      <Setter Property="MinWidth" Value="85"/>
+      <Setter Property="FontSize" Value="18"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+
+  </Application.Styles>
 </Application>
