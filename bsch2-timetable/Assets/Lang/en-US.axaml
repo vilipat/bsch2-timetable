@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+  <system:String x:Key="Lang.Person.FirstName">First Name</system:String>
+  <system:String x:Key="Lang.Person.LastName">Last Name</system:String>
+
+  <!--Buttons-->
+  <system:String x:Key="Lang.Buttons.New">New</system:String>
+  <system:String x:Key="Lang.Buttons.Save">Save</system:String>
+  <system:String x:Key="Lang.Buttons.Delete">Delete</system:String>
+  <system:String x:Key="Lang.Buttons.Cancel">Cancel</system:String>
+  <system:String x:Key="Lang.Buttons.Edit">Edit</system:String>
+
+  <!-- Validation -->
+  <system:String x:Key="Lang.Validation.Required">Field is required</system:String>
+
+</ResourceDictionary>

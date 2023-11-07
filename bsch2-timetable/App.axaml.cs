@@ -5,6 +5,9 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Timetable.ViewModels;
 using Timetable.Views;
+using System.Globalization;
+using Avalonia.Platform;
+using Timetable.Shared;
 
 namespace Timetable
 {
@@ -27,6 +30,8 @@ namespace Timetable
                     DataContext = new MainWindowViewModel(),
                 };
             }
+
+            LangHelper.Translate(Lang.cs_CZ);
 
             base.OnFrameworkInitializationCompleted();
         }

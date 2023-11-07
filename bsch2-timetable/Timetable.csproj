@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Assets\Resources.cs-CZ.resx" />
-    <EmbeddedResource Remove="Assets\Resources.en-US.resx" />
+    <AvaloniaXaml Remove="Assets\Lang\cs-CZ.axaml" />
+    <AvaloniaXaml Remove="Assets\Lang\en-US.axaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +37,15 @@
 
   <ItemGroup>
     <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Update="Assets\Lang\cs-CZ.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Assets\Lang\en-US.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
   </ItemGroup>
 
   <ItemGroup>
