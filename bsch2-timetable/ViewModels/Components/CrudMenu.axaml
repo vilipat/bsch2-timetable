@@ -1,0 +1,30 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Timetable.Views.Components">
+  <Design.PreviewWith>
+    <controls:CrudMenu />
+  </Design.PreviewWith>
+
+  <Style Selector="controls|CrudMenu">
+    <!-- Set Defaults -->
+    <Setter Property="Template">
+      <ControlTemplate>
+        
+        <StackPanel MinHeight="35" Height="35" Margin="10" Spacing="10" Orientation="Horizontal" >
+
+          <Button Command="{Binding New}" IsVisible="True"
+                  Classes="btn-add crud" Content="New"/>
+
+          <Button Command="{Binding Edit}" IsVisible="True"
+                  Classes="crud" Content="Edit" />
+          
+          <Button IsVisible="True"
+                  Classes="btn-del crud" Content="Delete" />
+
+          <ContentPresenter Content="{TemplateBinding AdditionalButtons}" />
+
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>
