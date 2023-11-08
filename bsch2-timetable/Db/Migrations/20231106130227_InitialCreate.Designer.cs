@@ -10,7 +10,7 @@ using Timetable.Db;
 
 namespace Timetable.Db.Migrations
 {
-    [DbContext(typeof(DbContext))]
+    [DbContext(typeof(TimetableDbContext))]
     [Migration("20231106130227_InitialCreate")]
     partial class InitialCreate
     {

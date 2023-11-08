@@ -8,6 +8,8 @@ using Timetable.Views;
 using System.Globalization;
 using Avalonia.Platform;
 using Timetable.Shared;
+using Timetable.Db;
+using Microsoft.EntityFrameworkCore;
 
 namespace Timetable
 {
@@ -29,6 +31,11 @@ namespace Timetable
                 {
                     DataContext = new MainWindowViewModel(),
                 };
+            }
+
+            using (TimetableDbContext dbContext = new())
+            {
+                dbContext.Database.Migrate();
             }
 
             LangHelper.Translate(Lang.cs_CZ);

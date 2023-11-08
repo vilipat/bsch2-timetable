@@ -8,7 +8,7 @@ using Timetable.Db.DbModels;
 
 namespace Timetable.Db
 {
-    internal class DbContext : Microsoft.EntityFrameworkCore.DbContext
+    internal class TimetableDbContext : DbContext
     {
         public DbSet<ActivityDb> Activities { get; set; }
         public DbSet<ActivitySlotDb> ActivitySlots { get; set; }
@@ -16,7 +16,7 @@ namespace Timetable.Db
 
         public string DbPath { get; }
 
-        public DbContext()
+        public TimetableDbContext()
         {
             DbPath = "data.db";
         }

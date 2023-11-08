@@ -21,6 +21,13 @@ namespace Timetable.ViewModels
                 new Person { Id = 2, FirstName = "Joe", LastName = "Doe" },
             };
 
-        internal Person SelectedItem { get; set; } = new();
+
+        private Person selectedItem;
+        internal Person SelectedItem
+        {
+            get =>  selectedItem;
+            set => SetProperty(ref selectedItem, value);
+        }
+
     }
 }

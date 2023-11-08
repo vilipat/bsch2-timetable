@@ -9,7 +9,7 @@ using Timetable.Db;
 
 namespace Timetable.Db.Migrations
 {
-    [DbContext(typeof(DbContext))]
+    [DbContext(typeof(TimetableDbContext))]
     partial class DbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

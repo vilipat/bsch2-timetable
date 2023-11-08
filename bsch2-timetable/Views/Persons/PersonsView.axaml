@@ -28,8 +28,8 @@
 
     <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
               SelectionMode="Single" Grid.Row="1"
-          IsReadOnly="True" CanUserResizeColumns="True"
-          GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
+              IsReadOnly="True" CanUserResizeColumns="True"
+              GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
       <DataGrid.Columns>
         <DataGridTextColumn Header="Jmeno" Binding="{Binding FirstName}" />
         <DataGridTextColumn Header="Prijmeni" Binding="{Binding LastName}" />
