@@ -1,4 +1,11 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Styling;
+using System;
+using System.Globalization;
+using System.Linq;
+using Timetable.ViewModels;
 
 namespace Timetable.Views
 {
@@ -7,6 +14,8 @@ namespace Timetable.Views
         public ActivitiesView()
         {
             InitializeComponent();
+            DataContext = new ActivitesViewModel();
         }
+
     }
 }

@@ -22,6 +22,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Watch Remove="Views\Components\Calendar.axaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
 	</ItemGroup>
 
@@ -32,8 +36,7 @@
 		<!--Condition
 		below is needed to remove Avalonia.Diagnostics package from build output in Release
 		configuration.-->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics"
-			Version="11.0.5" />
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.5" />
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.5" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Live.Avalonia" Version="1.4.1" />
@@ -42,10 +45,6 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Repositories\" />
 	</ItemGroup>
 
 	<ItemGroup>

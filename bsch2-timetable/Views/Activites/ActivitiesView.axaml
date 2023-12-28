@@ -3,6 +3,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Timetable.Views.ActivitiesView">
-  Activites tabs
+             x:Class="Timetable.Views.ActivitiesView"
+             xmlns:vm="clr-namespace:Timetable.ViewModels;assembly=Timetable"
+             x:DataType="vm:ActivitesViewModel">
+  <UserControl.Resources>
+    <Style x:Key="RowStyle" Selector="RowDefinition">
+      <Setter Property="Height" Value="60"/>
+    </Style>
+    <Style x:Key="ColumnStyle" Selector="ColumnDefinition"> 
+      <Setter Property="Width" Value="100" />
+    </Style>
+  </UserControl.Resources>
+
+
+
 </UserControl>

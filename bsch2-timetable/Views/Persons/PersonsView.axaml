@@ -48,6 +48,9 @@
 
         <Label Content="Last Name" />
         <TextBox Width="200" Text="{Binding SelectedItem.LastName}"/>
+
+
+      
       </StackPanel>
 
     </DockPanel>

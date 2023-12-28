@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="Timetable.Calendar"
+        xmlns:controls="using:Timetable">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+
+    <Grid ColumnDefinitions="1*,1*" >
+      <Button Content="&lt;"/>
+      <Button Content="&gt;" Grid.Column="1"/>
+    </Grid>
+
+    <!--Days header-->
+    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal"
+                  Name="DayHeader">
+    </StackPanel>
+
+    <!--Hours header-->
+    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical"
+                  Name="HourHeader">
+    </StackPanel>
+
+    <!--activites content-->
+    <ScrollViewer Grid.Row="1" Grid.Column="1" Name="MainScrollViewer"
+                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+      <Grid Name="ContentGrid"
+            MinWidth="{Binding TotalDayHeaderWidth}"
+            MinHeight="{Binding TotalHourHeaderHeight}">
+
+        <!--example-->
+        <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Background="LightBlue">
+          <TextBlock Text="Team Meeting" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+
+      </Grid>
+    </ScrollViewer>
+
+  </Grid>
+
+</UserControl>

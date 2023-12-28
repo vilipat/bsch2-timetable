@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,8 +9,10 @@ using Timetable.Models;
 
 namespace Timetable.ViewModels
 {
-    public class PersonsViewModel : ViewModelBase
+    public partial class PersonsViewModel : ViewModelBase
     {
+        public bool IsEdited { get; set; }
+
         public PersonsViewModel()
         {
 
@@ -25,9 +28,27 @@ namespace Timetable.ViewModels
         private Person selectedItem;
         internal Person SelectedItem
         {
-            get =>  selectedItem;
+            get => selectedItem;
             set => SetProperty(ref selectedItem, value);
         }
 
+        [RelayCommand()]
+        public void Edit()
+        {
+
+        }
+
+        [RelayCommand()]
+        public void Delete()
+        {
+            Items.Remove(selectedItem);
+        }
+
+
+        [RelayCommand()]
+        public void New()
+        {
+            SelectedItem = new();
+        }
     }
 }
