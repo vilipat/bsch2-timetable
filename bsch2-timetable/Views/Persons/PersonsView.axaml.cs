@@ -10,5 +10,12 @@ namespace Timetable.Views
             InitializeComponent();
             DataContext = new PersonsViewModel();
         }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var dataGrid = (DataGrid)sender;
+            
+            // TODO: implement multi selection datagrid to vm
+        }
     }
 }

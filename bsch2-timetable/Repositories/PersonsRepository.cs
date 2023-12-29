@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,21 +29,22 @@ namespace Timetable.Repositories
             };
         }
 
-        public List<Person> GetPersons()
+        public async Task<List<Person>> GetPersons(string filterFirstName = "", string filterLastName = "")
         {
-            //Task.Delay(1000).Wait();
-
             using var db = new TimetableDbContext();
 
-            return db.Persons
+            return await db.Persons
                 .AsNoTracking()
+                .Where(dbPerson => 
+                    (string.IsNullOrEmpty(filterFirstName) ||  dbPerson.FirstName.ToLower().Contains(filterFirstName)) &&
+                    (string.IsNullOrEmpty(filterLastName) || dbPerson.FirstName.ToLower().Contains(filterFirstName)))
                 .Select(dbPers =>
             new Person()
             {
                 Id = dbPers.Id,
                 FirstName = dbPers.FirstName,
                 LastName = dbPers.LastName,
-            }).ToList();
+            }).ToListAsync();
         }
 
         public void Save(Person person)
@@ -62,9 +64,12 @@ namespace Timetable.Repositories
             db.SaveChanges();
         }
 
-        public void Delete(List<Person> persons)
+        public void Delete(IList<int> personsIds)
         {
+            using var db = new TimetableDbContext();
 
+            db.Persons.RemoveRange(
+                db.Persons.Where(dbPerson => personsIds.Contains(dbPerson.Id)));
         }
 
     }
