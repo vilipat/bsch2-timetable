@@ -5,6 +5,7 @@ using Avalonia.Data;
 using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Media;
 using Avalonia.Media.TextFormatting;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Data.Common;
@@ -21,7 +22,7 @@ public partial class Calendar : UserControl
     public static readonly StyledProperty<string> DayToColumnMappingProperty =
         AvaloniaProperty.Register<Calendar, string>(nameof(DayToColumnMapping));
 
-    public static readonly StyledProperty<string> DurationToRowSpanMappingProperty = 
+    public static readonly StyledProperty<string> DurationToRowSpanMappingProperty =
         AvaloniaProperty.Register<Calendar, string>(nameof(DurationToRowSpanMapping));
 
     public static readonly StyledProperty<IEnumerable> ItemsSourceProperty =
@@ -63,8 +64,49 @@ public partial class Calendar : UserControl
     public Calendar()
     {
         InitializeComponent();
-        MainScrollViewer.ScrollChanged += OnMainContentScrollChanged;
         InitCalendar();
+        MainScrollViewer.ScrollChanged += OnMainContentScrollChanged;
+    }
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        PopulateGrid();
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnDetachedFromVisualTree(e);
+        ContentGrid.Children.Clear();
+    }
+
+    private void PopulateGrid()
+    {
+        if (ItemsSource == null)
+            return;
+
+        if (this.FindResource("ActivityTemplate") is not DataTemplate template)
+            return;
+
+        ContentGrid.Children.Clear();
+
+        foreach (var item in ItemsSource)
+        {
+            ContentControl activityControl = new()
+            {
+                Content = item,
+                ContentTemplate = template
+            };
+
+            var itemType = item.GetType();
+            int row = (int)itemType.GetProperty(HourToRowMapping).GetValue(item);
+            int column = (int)itemType.GetProperty(DayToColumnMapping).GetValue(item);
+
+            Grid.SetRow(activityControl, row);
+            Grid.SetColumn(activityControl, column);
+
+            ContentGrid.Children.Add(activityControl);
+        }
     }
 
     private const int daysInWeek = 7;
@@ -79,6 +121,9 @@ public partial class Calendar : UserControl
             .Skip(1)
             .Concat(dayNames.Take(1))
             .ToArray();
+
+        ContentGrid.ColumnDefinitions.Clear();
+        ContentGrid.RowDefinitions.Clear();
 
         for (int i = 0; i < daysInWeek; i++)
         {

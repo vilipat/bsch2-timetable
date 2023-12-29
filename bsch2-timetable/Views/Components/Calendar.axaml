@@ -4,6 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              x:Class="Timetable.Views.Components.Calendar"
         xmlns:controls="using:Timetable.Views.Components">
+
+  <UserControl.Resources>
+    <DataTemplate x:Key="ActivityTemplate">
+      <Border Background="LightCoral"
+              Grid.Row="{Binding Path=DataContext[HourToRowMapping], RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:Calendar}}}"
+              Grid.Column="{Binding Path=DataContext[DayToColumnMapping], RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:Calendar}}}"
+              Grid.RowSpan="{Binding Path=DataContext[DurationToRowSpanMappingProperty], RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:Calendar}}}">
+
+        <ContentControl Content="{Binding}"
+                        ContentTemplate="{Binding ActivityContent, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}">
+
+        </ContentControl>
+        
+      </Border>
+    </DataTemplate>
+  </UserControl.Resources>
+
   
   <Grid>
     <Grid.RowDefinitions>
@@ -20,6 +37,7 @@
       <Button Content="&gt;" Grid.Column="1"/>
     </Grid>
 
+
     <!--Days header-->
     <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal"
                   Name="DayHeader">
@@ -33,38 +51,13 @@
     <!--activites content-->
     <ScrollViewer Grid.Row="1" Grid.Column="1" Name="MainScrollViewer"
                   HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+
       <Grid Name="ContentGrid"
-            MinWidth="{Binding TotalDayHeaderWidth}"
-            MinHeight="{Binding TotalHourHeaderHeight}">
-
-        <ItemsControl ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              
-              <Border Background="Coral" 
-                      Grid.Row="{Binding Path=DataContext[StartHourPropertyMapping], RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}"
-                      Grid.Column="{Binding Path=DataContext[DayOfWeekPropertyMapping], RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}"
-                      Grid.RowSpan="{Binding Path=DataContext[DurationHoursPropertyMapping], RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}"
-                      >
-
-                <ContentControl Content="{Binding}"
-                                ContentTemplate="{Binding ActivityContent, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}">
-                 
-                </ContentControl>
-              
-              </Border>
-              
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        
-        <!--example-->
-        <!--<Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Background="LightBlue">
-          <TextBlock Text="Team Meeting" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        </Border>-->
-
+        MinWidth="{Binding TotalDayHeaderWidth}"
+        MinHeight="{Binding TotalHourHeaderHeight}">
 
       </Grid>
+
     </ScrollViewer>
 
   </Grid>
