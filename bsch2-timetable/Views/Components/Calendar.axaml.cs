@@ -1,20 +1,71 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data;
+using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Media;
+using Avalonia.Media.TextFormatting;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.Globalization;
 using System.Linq;
 
-namespace Timetable;
+namespace Timetable.Views.Components;
 
 public partial class Calendar : UserControl
 {
+    public static readonly StyledProperty<string> HourToRowMappingProperty =
+        AvaloniaProperty.Register<Calendar, string>(nameof(HourToRowMapping));
+
+    public static readonly StyledProperty<string> DayToColumnMappingProperty =
+        AvaloniaProperty.Register<Calendar, string>(nameof(DayToColumnMapping));
+
+    public static readonly StyledProperty<string> DurationToRowSpanMappingProperty = 
+        AvaloniaProperty.Register<Calendar, string>(nameof(DurationToRowSpanMapping));
+
+    public static readonly StyledProperty<IEnumerable> ItemsSourceProperty =
+        AvaloniaProperty.Register<Calendar, IEnumerable>(nameof(ItemsSource));
+
+    public static readonly StyledProperty<DataTemplate> ActivityContentProperty =
+    AvaloniaProperty.Register<Calendar, DataTemplate>(nameof(ContentTemplate));
+
+    public DataTemplate ActivityContent
+    {
+        get => GetValue(ActivityContentProperty);
+        set => SetValue(ActivityContentProperty, value);
+    }
+
+    public string HourToRowMapping
+    {
+        get => GetValue(HourToRowMappingProperty);
+        set => SetValue(HourToRowMappingProperty, value);
+    }
+
+    public string DayToColumnMapping
+    {
+        get => GetValue(DayToColumnMappingProperty);
+        set => SetValue(DayToColumnMappingProperty, value);
+    }
+
+    public string DurationToRowSpanMapping
+    {
+        get => GetValue(DurationToRowSpanMappingProperty);
+        set => SetValue(DurationToRowSpanMappingProperty, value);
+    }
+
+    public IEnumerable ItemsSource
+    {
+        get => GetValue(ItemsSourceProperty);
+        set => SetValue(ItemsSourceProperty, value);
+    }
+
     public Calendar()
     {
         InitializeComponent();
         MainScrollViewer.ScrollChanged += OnMainContentScrollChanged;
         InitCalendar();
     }
-
 
     private const int daysInWeek = 7;
     private const int hoursInDay = 24;

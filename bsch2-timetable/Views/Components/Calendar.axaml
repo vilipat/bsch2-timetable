@@ -2,9 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             x:Class="Timetable.Calendar"
-        xmlns:controls="using:Timetable">
-
+             x:Class="Timetable.Views.Components.Calendar"
+        xmlns:controls="using:Timetable.Views.Components">
+  
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -37,10 +37,32 @@
             MinWidth="{Binding TotalDayHeaderWidth}"
             MinHeight="{Binding TotalHourHeaderHeight}">
 
+        <ItemsControl ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              
+              <Border Background="Coral" 
+                      Grid.Row="{Binding Path=DataContext[StartHourPropertyMapping], RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}"
+                      Grid.Column="{Binding Path=DataContext[DayOfWeekPropertyMapping], RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}"
+                      Grid.RowSpan="{Binding Path=DataContext[DurationHoursPropertyMapping], RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}"
+                      >
+
+                <ContentControl Content="{Binding}"
+                                ContentTemplate="{Binding ActivityContent, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Calendar}}">
+                 
+                </ContentControl>
+              
+              </Border>
+              
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
         <!--example-->
-        <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Background="LightBlue">
+        <!--<Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Background="LightBlue">
           <TextBlock Text="Team Meeting" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        </Border>
+        </Border>-->
+
 
       </Grid>
     </ScrollViewer>
