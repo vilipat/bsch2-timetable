@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Timetable.Models
 {
-    internal class BaseModel : ObservableObject
+    public class BaseModel : ObservableObject
     {
         public int Id { get; set; }
     }

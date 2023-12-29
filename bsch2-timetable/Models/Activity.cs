@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Timetable.Models
 {
-    internal class Activity : BaseModel
+    public class Activity : BaseModel
     {
         private string title = string.Empty;
         public string Title

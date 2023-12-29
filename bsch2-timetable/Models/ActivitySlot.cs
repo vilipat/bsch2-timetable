@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Timetable.Models
 {
-    internal class ActivitySlot : BaseModel
+    public class ActivitySlot : BaseModel
     {
         private TimeSpan start;
         public TimeSpan Start
