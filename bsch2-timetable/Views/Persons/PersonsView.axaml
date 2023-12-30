@@ -45,14 +45,14 @@
       </Grid.RowDefinitions>
 
       <!--left side: datagrid-->
-
       <ProgressBar IsIndeterminate="True"
-     IsVisible="{Binding IsItemsLoading}"
-     HorizontalAlignment="Center"
-     VerticalAlignment="Center"/>
+                   IsVisible="{Binding IsItemsLoading}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
 
-      <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
-                SelectionChanged="" ScrollViewer.VerticalScrollBarVisibility="Auto"
+      <DataGrid Name="ItemsDataGrid" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                SelectionChanged="DataGrid_SelectionChanged"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
                 SelectionMode="Extended" IsEnabled="{Binding !IsEdit}"
                 IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
                 GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
@@ -64,7 +64,6 @@
       </DataGrid>
 
 
-
       <!--separator-->
       <GridSplitter Grid.Column="1" Grid.RowSpan="2"  Background="LightGray" ResizeDirection="Columns"/>
 
@@ -74,8 +73,13 @@
             RowDefinitions="*, 50"
             ColumnDefinitions="5, *, 5">
 
-        <TabControl Grid.Column="1">
-          <TabItem Header="Data" >
+        <ProgressBar IsIndeterminate="True" Grid.Column="1"
+                     IsVisible="{Binding IsItemLoading}"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"/>
+
+        <TabControl Grid.Column="1" IsVisible="{Binding !IsItemLoading}">
+          <TabItem Header="{DynamicResource Lang.Data}" >
 
             <StackPanel IsEnabled="{Binding IsEdit}" >
 
@@ -90,7 +94,7 @@
             </StackPanel>
 
           </TabItem>
-          <TabItem Header="Calendar">
+          <TabItem Header="{DynamicResource Lang.Calendar}">
             <components:Calendar  Grid.Row="2" Grid.Column="1" >
             </components:Calendar>
           </TabItem>

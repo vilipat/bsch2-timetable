@@ -17,7 +17,7 @@
     <StackPanel>
       <!--<Separator Grid.Row="0" Grid.ColumnSpan="3" />-->
       <StackPanel Grid.Row="0" Height="30" Margin="0 5 0 0" Orientation="Horizontal"  VerticalAlignment="Center" Spacing="10" >
-        <TextBlock Text="{DynamicResource Lang.Activity.Title}" VerticalAlignment="Center" />
+        <TextBlock Text="{DynamicResource Lang.Title}" VerticalAlignment="Center" />
         <TextBox Width="150" Text="{Binding FilterTitle}" />
 
         <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding Filter}"
@@ -40,24 +40,22 @@
       </Grid.RowDefinitions>
 
       <!--left side: datagrid-->
-      <StackPanel Grid.RowSpan="2">
-        <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
-                  SelectionChanged=""
-                  SelectionMode="Extended" IsEnabled="{Binding !IsEdit}"
-                  IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
-                  GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
-          <DataGrid.Columns>
-            <DataGridTextColumn Header="{DynamicResource Lang.Activity.Title}" Binding="{Binding Title}" />
-          </DataGrid.Columns>
+      <ProgressBar IsIndeterminate="True"
+                   IsVisible="{Binding IsItemsLoading}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
 
-        </DataGrid>
+      <DataGrid Name="ItemsDataGrid" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                SelectionChanged="DataGrid_SelectionChanged"
+                SelectionMode="Extended" IsEnabled="{Binding !IsEdit}"
+                IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
+                GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{DynamicResource Lang.Title}" Binding="{Binding Title}" />
+        </DataGrid.Columns>
 
-        <ProgressBar IsIndeterminate="True"
-               IsVisible="{Binding IsItemsLoading}"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
+      </DataGrid>
 
-      </StackPanel>
 
       <!--separator-->
       <GridSplitter Grid.Column="1" Grid.RowSpan="2"  Background="LightGray" ResizeDirection="Columns"/>
@@ -68,23 +66,28 @@
             RowDefinitions="*, 50"
             ColumnDefinitions="5, *, 5">
 
-        <TabControl Grid.Column="1">
-          <TabItem Header="Data" >
+        <ProgressBar IsIndeterminate="True" Grid.Column="1"
+                     IsVisible="{Binding IsItemLoading}"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"/>
+
+        <TabControl Grid.Column="1" IsVisible="{Binding !IsItemLoading}">
+          <TabItem Header="{DynamicResource Lang.Data}" >
 
             <StackPanel IsEnabled="{Binding IsEdit}" >
 
               <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                <Label Content="First Name" />
-                <TextBox Width="200"  Text="{Binding EditedItem.FirstName}" />
+                <Label Content="{DynamicResource Lang.Title}" />
+                <TextBox Width="200"  Text="{Binding EditedItem.Title}" IsReadOnly="True"/>
 
-                <Label Content="Last Name" />
-                <TextBox Width="200"  Text="{Binding EditedItem.LastName}" />
+                <Label Content="{DynamicResource Lang.Description}" />
+                <TextBox Width="200" Height="200"  Text="{Binding EditedItem.Description}" TextWrapping="Wrap" />
               </StackPanel>
 
             </StackPanel>
 
           </TabItem>
-          <TabItem Header="Calendar">
+          <TabItem Header="{DynamicResource Lang.Calendar}">
             <components:Calendar ItemsSource="{Binding Activities}"
                              HourToRowMapping="StartHour"
                              DayToColumnMapping="DayOfWeek"

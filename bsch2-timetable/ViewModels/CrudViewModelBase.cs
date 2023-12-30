@@ -12,14 +12,13 @@ using Timetable.Repositories;
 
 namespace Timetable.ViewModels
 {
-    public abstract partial class CrudViewModelBase<T> : ViewModelBase where T : BaseModel, new()
+    public abstract partial class CrudViewModelBase<TModel, TFilter> : ViewModelBase where TModel : BaseModel, new()
     {
-        protected abstract IRepository<T> Repository { get; }
+        /// <summary>
+        /// Default repository for viewmodel
+        /// </summary>
+        protected abstract IRepository<TModel, TFilter> Repository { get; }
 
-        public CrudViewModelBase()
-        {
-
-        }
 
         private bool isEdit;
         public bool IsEdit
@@ -57,26 +56,32 @@ namespace Timetable.ViewModels
         private bool isItemLoading = false;
 
 
-        private T? selectedItem;
-        public T? SelectedItem
+        private TModel? selectedItem;
+        public TModel? SelectedItem
         {
             get => selectedItem;
             set
             {
                 SetProperty(ref selectedItem, value);
                 IsEditVisible = value != null;
-
-                EditedItem = value;
             }
+        }
+
+        public async Task LoadFullItem(int itemId)
+        {
+            IsItemLoading = true;
+            await Task.Delay(1500);
+            EditedItem = await Repository.GetItem(itemId);
+            IsItemLoading = false;
         }
 
 
         [ObservableProperty]
-        private ObservableCollection<T> items = new();
+        private ObservableCollection<TModel> items = new();
 
 
-        private T? editedItem;
-        public T? EditedItem
+        private TModel? editedItem;
+        public TModel? EditedItem
         {
             get => editedItem;
             set
@@ -92,10 +97,11 @@ namespace Timetable.ViewModels
         public async Task Filter()
         {
             IsItemsLoading = true;
-            Items = new(await Repository.GetItems());
+            Items = new(await Repository.GetItems(GetFilter()));
             IsItemsLoading = false;
         }
 
+        protected abstract TFilter GetFilter();
 
         [RelayCommand()]
         public void New()

@@ -7,23 +7,27 @@ using System.Text;
 using System.Threading.Tasks;
 using Timetable.Models;
 using Timetable.Repositories;
+using Timetable.Shared.Filters;
 
 namespace Timetable.ViewModels
 {
-    public partial class ActivitiesViewModel : CrudViewModelBase<Activity>
+    public partial class ActivitiesViewModel : CrudViewModelBase<Activity, ActivityFilter>
     {
+        protected override IRepository<Activity, ActivityFilter> Repository => activitiesRepository;
 
-        public ObservableCollection<CalendarItem> Items { get; set; }
-
-        protected override IRepository<Activity> Repository => activitiesRepository;
         private readonly ActivitiesRepository activitiesRepository;
-
-        [ObservableProperty]
-        private string filterTitle;
 
         public ActivitiesViewModel()
         {
             activitiesRepository = new ActivitiesRepository();
         }
+
+        [ObservableProperty]
+        private string filterTitle = string.Empty;
+
+        protected override ActivityFilter GetFilter() => new()
+        {
+            Title = FilterTitle
+        };
     }
 }

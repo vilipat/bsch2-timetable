@@ -10,19 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Timetable.Models;
 using Timetable.Repositories;
+using Timetable.Shared.Filters;
 
 namespace Timetable.ViewModels
 {
-    public partial class PersonsViewModel : CrudViewModelBase<Person>
+    public partial class PersonsViewModel : CrudViewModelBase<Person, PersonFilter>
     {
         private readonly PersonsRepository personsRepository;
-        protected override IRepository<Person> Repository => personsRepository;
+        protected override IRepository<Person, PersonFilter> Repository => personsRepository;
 
         public PersonsViewModel()
         {
-            personsRepository = new PersonsRepository(dbPerson => 
-                    (string.IsNullOrEmpty(filterFirstName) || dbPerson.FirstName.ToLower().Contains(filterFirstName.ToLower())) &&
-                    (string.IsNullOrEmpty(filterLastName) || dbPerson.LastName.ToLower().Contains(filterFirstName.ToLower())));
+            personsRepository = new PersonsRepository();
         }
 
         [ObservableProperty]
@@ -47,5 +46,10 @@ namespace Timetable.ViewModels
             //FilterItems();
         }
 
+        protected override PersonFilter GetFilter() => new()
+        {
+            FirstName = FilterFirstName,
+            LastName = FilterLastName
+        };
     }
 }
