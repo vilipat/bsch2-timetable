@@ -9,10 +9,10 @@ using Timetable.Models;
 
 namespace Timetable.Repositories
 {
-    public interface IRepository<T> where T : BaseModel
+    public interface IRepository<TModel, TFilter> where TModel : BaseModel
     {
-        Task<List<T>> GetItems();
-        Task<T> GetItem(int id);
-        void Save(T item);
+        Task<List<TModel>> GetItems(TFilter filterCriteria);
+        Task<TModel> GetItem(int id);
+        void Save(TModel item);
     }
 }

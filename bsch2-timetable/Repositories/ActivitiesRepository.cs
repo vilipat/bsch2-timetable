@@ -9,43 +9,43 @@ using System.Threading.Tasks;
 using Timetable.Db;
 using Timetable.Db.DbModels;
 using Timetable.Models;
+using Timetable.Shared.Filters;
 using Activity = Timetable.Models.Activity;
 
 namespace Timetable.Repositories
 {
-    class ActivitiesRepository : IRepository<Activity>
+    class ActivitiesRepository : IRepository<Activity, ActivityFilter>
     {
-        public ActivitiesRepository(Expression<Func<ActivityDb, bool>>? filter = null)
-        {
-            if (filter != null)
-                this.filter = filter;
-        }
-
-        private Expression<Func<ActivityDb, bool>> filter = _ => true;
-
         public async Task<Activity> GetItem(int id)
         {
             using var db = new TimetableDbContext();
 
-            var activity = await db.Activities
+            var activityDb = await db.Activities
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (activityDb == null)
+            {
+                // return error message
+            }
 
             return new Activity()
             {
                 Id = id,
-                Title = activity.Title,
-                Description = activity.Description,
+                Title = activityDb.Title,
+                Description = activityDb.Description,
             };
         }
 
-        public async Task<List<Activity>> GetItems()
+        public async Task<List<Activity>> GetItems(ActivityFilter filterCriteria)
         {
             using var db = new TimetableDbContext();
 
+            var filterTitle = filterCriteria.Title;
+
             var query = db.Activities
                 .AsNoTracking()
-                .Where(filter);
+                .Where(dbAct => dbAct.Title.ToLower().Contains(filterTitle.ToLower()));
 
             return await query
                 .Select(dbActivity =>
@@ -53,7 +53,6 @@ namespace Timetable.Repositories
                 {
                     Id = dbActivity.Id,
                     Title = dbActivity.Title,
-                    Description = dbActivity.Description,
                 }).ToListAsync();
         }
 

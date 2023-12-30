@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,38 +11,48 @@ using System.Threading.Tasks;
 using Timetable.Db;
 using Timetable.Db.DbModels;
 using Timetable.Models;
+using Timetable.Shared.Filters;
 
 namespace Timetable.Repositories
 {
-    internal class PersonsRepository : IRepository<Person>
+    public interface IFilter
     {
-        public PersonsRepository(Expression<Func<PersonDb, bool>>? filter = null)
-        {
-            if (filter != null)
-                this.filter = filter;
-        }
 
-        private Expression<Func<PersonDb, bool>> filter = _ => true;
+    }
 
+    internal class PersonsRepository : IRepository<Person, PersonFilter>
+    {
         public async Task<Person> GetItem(int id)
         {
             using var db = new TimetableDbContext();
 
-            var person = await db.Persons
+            var personDb = await db.Persons
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (personDb == null)
+            {
+                // return error message
+            }
 
             return new Person()
             {
                 Id = id,
-                FirstName = person.FirstName,
-                LastName = person.LastName,
+                FirstName = personDb.FirstName,
+                LastName = personDb.LastName,
             };
         }
 
-        public async Task<List<Person>> GetItems()
+        public async Task<List<Person>> GetItems(PersonFilter filterCriteria)
         {
             using var db = new TimetableDbContext();
+
+            var filterFirstName = filterCriteria.FirstName;
+            var filterLastName = filterCriteria.LastName;
+
+            Expression<Func<PersonDb, bool>> filter = dbPerson =>
+                    (string.IsNullOrEmpty(filterFirstName) || dbPerson.FirstName.ToLower().Contains(filterFirstName.ToLower())) &&
+                    (string.IsNullOrEmpty(filterLastName) || dbPerson.LastName.ToLower().Contains(filterFirstName.ToLower()));
 
             var query = db.Persons
                 .AsNoTracking()
