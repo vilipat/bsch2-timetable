@@ -6,7 +6,7 @@
              x:Class="Timetable.Views.ActivitiesView"
              xmlns:components="clr-namespace:Timetable.Views.Components;assembly=Timetable"
              xmlns:vm="clr-namespace:Timetable.ViewModels;assembly=Timetable"
-             x:DataType="vm:ActivitesViewModel">
+             x:DataType="vm:ActivitiesViewModel">
 
   <Grid>
     <Grid.RowDefinitions>
