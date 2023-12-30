@@ -13,77 +13,101 @@
     <vmdesign:PersonsDesign />
   </Design.DataContext>
 
-  <Grid VerticalAlignment="Stretch">
+  <Grid>
 
     <Grid.RowDefinitions>
-      <RowDefinition Height="4" />
-      <RowDefinition Height="20" />
-      <RowDefinition Height="4" />
+      <RowDefinition Height="50" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <Separator Grid.Row="0" Grid.ColumnSpan="3" />
+    <!--<Separator Grid.Row="0" Grid.ColumnSpan="3" />-->
 
-    <StackPanel Grid.Row="1" Height="30" Orientation="Horizontal" Margin="0 10 0 10"  VerticalAlignment="Center" Spacing="10" >
-      <TextBlock Text="{DynamicResource Lang.Person.FirstName}" VerticalAlignment="Center" />
-      <TextBox Width="150" Text="{Binding FilterFirstName}" />
-      <TextBlock Text="{DynamicResource Lang.Person.LastName}" VerticalAlignment="Center" />
-      <TextBox Width="150" Text="{Binding FilterLastName}" />
-      <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding Filter}"
-              Content="&#xf002;" Classes="crud" MinWidth="35" />
-      <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding ClearFilter}"
-              Content="&#xf00d;" Classes="crud" MinWidth="35" />
+    <StackPanel  >
+      <StackPanel Grid.Row="0" Height="30" Margin="0 5 0 0" Orientation="Horizontal"  VerticalAlignment="Center" Spacing="10" >
+        <TextBlock Text="{DynamicResource Lang.Person.FirstName}" VerticalAlignment="Center" />
+        <TextBox Width="150" Text="{Binding FilterFirstName}" />
+        <TextBlock Text="{DynamicResource Lang.Person.LastName}" VerticalAlignment="Center" />
+        <TextBox Width="150" Text="{Binding FilterLastName}" />
+        <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding Filter}"
+                Content="&#xf002;" Classes="crud" MinWidth="35" />
+        <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding ClearFilter}"
+                Content="&#xf00d;" Classes="crud" MinWidth="35" />
+
+      </StackPanel>
+      <Separator Margin="0 5 0 0"  />
     </StackPanel>
-    
-    <Separator Grid.Row="2" Grid.ColumnSpan="3" />
+
 
     <Grid Grid.Row="3" >
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="250" />
         <ColumnDefinition Width="4" />
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
-        <RowDefinition  Height="*"/>
+        <RowDefinition/>
       </Grid.RowDefinitions>
-      
+
       <!--left side: datagrid-->
-      <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" 
-                SelectionChanged=""
-                SelectionMode="Extended" IsEnabled="{Binding !IsEdit}"
-                IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
-                GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
-        <DataGrid.Columns>
-          <DataGridTextColumn Header="{DynamicResource Lang.Person.FirstName}" Binding="{Binding FirstName}" />
-          <DataGridTextColumn Header="{DynamicResource Lang.Person.LastName}" Binding="{Binding LastName}" />
-        </DataGrid.Columns>
+      <StackPanel Grid.RowSpan="2">
+        <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                  SelectionChanged=""
+                  SelectionMode="Extended" IsEnabled="{Binding !IsEdit}"
+                  IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
+                  GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="{DynamicResource Lang.Person.FirstName}" Binding="{Binding FirstName}" />
+            <DataGridTextColumn Header="{DynamicResource Lang.Person.LastName}" Binding="{Binding LastName}" />
+          </DataGrid.Columns>
 
-      </DataGrid>
+        </DataGrid>
 
-      <ProgressBar IsIndeterminate="True"
-             IsVisible="{Binding IsItemsLoading}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center"/>
+        <ProgressBar IsIndeterminate="True"
+               IsVisible="{Binding IsItemsLoading}"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+
+      </StackPanel>
 
       <!--separator-->
-      <GridSplitter Grid.Column="1"  Background="LightGray" ResizeDirection="Columns"/>
+      <GridSplitter Grid.Column="1" Grid.RowSpan="2"  Background="LightGray" ResizeDirection="Columns"/>
+
 
       <!--right side-->
-      <DockPanel Grid.Column="2" >
+      <Grid Grid.Column="2"
+            RowDefinitions="*, 50"
+            ColumnDefinitions="5, *, 5">
 
-        <components:CrudMenu DockPanel.Dock="Bottom"  />
+        <TabControl Grid.Column="1">
+          <TabItem Header="Data" >
+            <ScrollViewer Grid.Row="0" Grid.Column="1">
 
-        <StackPanel Margin="10" HorizontalAlignment="Left" IsEnabled="{Binding IsEdit}">
-          <Label Content="First Name" />
-          <TextBox Width="200" Text="{Binding EditedItem.FirstName}" />
+              <StackPanel HorizontalAlignment="Left"  IsEnabled="{Binding IsEdit}">
 
-          <Label Content="Last Name" />
-          <TextBox Width="200" Text="{Binding EditedItem.LastName}"/>
-        </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                  <Label Content="First Name" />
+                  <TextBox Width="200" Text="{Binding EditedItem.FirstName}" />
 
-      </DockPanel>
+                  <Label Content="Last Name" />
+                  <TextBox Width="200" Text="{Binding EditedItem.LastName}"/>
+                </StackPanel>
+
+              </StackPanel>
+
+            </ScrollViewer>
+          </TabItem>
+          <TabItem Header="Calendar">
+            <components:Calendar  Grid.Row="2" Grid.Column="1" >
+            </components:Calendar>
+          </TabItem>
+        </TabControl>
+
+        <components:CrudMenu  Grid.Row="4" Grid.Column="1" />
+
+      </Grid>
+
     </Grid>
-    
+
   </Grid>
 
 </UserControl>

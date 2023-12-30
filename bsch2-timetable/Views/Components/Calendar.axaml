@@ -24,15 +24,15 @@
   
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition/>
+      <RowDefinition Height="30" />
+      <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/>
-      <ColumnDefinition/>
+      <ColumnDefinition Width="50"/>
+      <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
-    <Grid ColumnDefinitions="1*,1*" >
+    <Grid ColumnDefinitions="*,*" >
       <Button Content="&lt;"/>
       <Button Content="&gt;" Grid.Column="1"/>
     </Grid>
@@ -50,7 +50,7 @@
 
     <!--activites content-->
     <ScrollViewer Grid.Row="1" Grid.Column="1" Name="MainScrollViewer"
-                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                  HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
 
       <Grid Name="ContentGrid"
         MinWidth="{Binding TotalDayHeaderWidth}"

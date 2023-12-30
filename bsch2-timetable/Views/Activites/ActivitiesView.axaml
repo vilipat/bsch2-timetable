@@ -16,17 +16,28 @@
     </Style>
   </UserControl.Resources>
 
-  <components:Calendar ItemsSource="{Binding Activities}" 
-                       HourToRowMapping="StartHour" 
-                       DayToColumnMapping="DayOfWeek"
-                       DurationToRowSpanMapping="DurationHours">
-    <components:Calendar.ActivityContent>
-      <DataTemplate>
-        <StackPanel>
-          <TextBlock Text="{Binding Title}" />
-        </StackPanel>
-      </DataTemplate>
-    </components:Calendar.ActivityContent>
-  </components:Calendar>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="40"/>
+    </Grid.RowDefinitions>
+    
+    <components:Calendar ItemsSource="{Binding Activities}"
+                     HourToRowMapping="StartHour"
+                     DayToColumnMapping="DayOfWeek"
+                     DurationToRowSpanMapping="DurationHours">
+      <components:Calendar.ActivityContent>
+        <DataTemplate>
+          <StackPanel>
+            <TextBlock Text="{Binding Title}" />
+          </StackPanel>
+        </DataTemplate>
+      </components:Calendar.ActivityContent>
+    </components:Calendar>
+
+    <components:CrudMenu Grid.Row="1" />
+
+  </Grid>
+
 
 </UserControl>

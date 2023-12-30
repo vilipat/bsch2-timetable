@@ -134,7 +134,7 @@ namespace Timetable.ViewModels
         public void Cancel()
         {
             IsEdit = false;
-            int lastSelectedItemId = SelectedItem!.Id;
+            int lastSelectedItemId = EditedItem!.Id;
             FilterItems();
             
             var lastSelectedItem = Items.FirstOrDefault(p => p.Id == lastSelectedItemId);
