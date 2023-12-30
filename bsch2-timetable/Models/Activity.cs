@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,21 +8,13 @@ using System.Threading.Tasks;
 
 namespace Timetable.Models
 {
-    public class Activity : BaseModel
+    public partial class Activity : BaseModel
     {
+        [ObservableProperty]
         private string title = string.Empty;
-        public string Title
-        {
-            get => title;
-            set => SetProperty(ref title, value);
-        }
 
+        [ObservableProperty]
         private string description = string.Empty;
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
-        }
 
         public List<ActivitySlot> ActivitySlots { get; } = new();
     }
