@@ -17,4 +17,8 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
+  <Window.Resources>
+    <FontFamily x:Key="FontAwesome">avares://Timetable/Assets#Font Awesome 6 Free</FontFamily>
+  </Window.Resources>
+
 </Window>

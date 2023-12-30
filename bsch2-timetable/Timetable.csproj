@@ -22,6 +22,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Assets\Font Awesome 6 Free-Solid-900.otf" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Watch Remove="Views\Components\Calendar.axaml" />
 	</ItemGroup>
 

@@ -24,13 +24,15 @@
 
     <Separator Grid.Row="0" Grid.ColumnSpan="3" />
 
-    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 20 0 20" VerticalAlignment="Center" Spacing="10" >
-      <TextBlock Text="{DynamicResource Lang.Person.FirstName}" Height="20" />
+    <StackPanel Grid.Row="1" Height="30" Orientation="Horizontal" Margin="0 10 0 10"  VerticalAlignment="Center" Spacing="10" >
+      <TextBlock Text="{DynamicResource Lang.Person.FirstName}" VerticalAlignment="Center" />
       <TextBox Width="150" Text="{Binding FilterFirstName}" />
-      <TextBlock Text="{DynamicResource Lang.Person.LastName}" Height="20" />
+      <TextBlock Text="{DynamicResource Lang.Person.LastName}" VerticalAlignment="Center" />
       <TextBox Width="150" Text="{Binding FilterLastName}" />
-      <Button Command="{Binding Filter}" Content="Search" Classes="crud" />
-      <Button Command="{Binding ClearFilter}" Content="Clear" Classes="crud" />
+      <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding Filter}"
+              Content="&#xf002;" Classes="crud" MinWidth="35" />
+      <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding ClearFilter}"
+              Content="&#xf00d;" Classes="crud" MinWidth="35" />
     </StackPanel>
     
     <Separator Grid.Row="2" Grid.ColumnSpan="3" />
