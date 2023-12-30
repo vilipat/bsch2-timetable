@@ -70,7 +70,6 @@ namespace Timetable.ViewModels
         public async Task LoadFullItem(int itemId)
         {
             IsItemLoading = true;
-            await Task.Delay(1500);
             EditedItem = await Repository.GetItem(itemId);
             IsItemLoading = false;
         }
