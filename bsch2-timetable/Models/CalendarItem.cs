@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Timetable.Models
 {
-    internal class CalendarItem : BaseModel
+    public class CalendarItem : BaseModel
     {
         //public DayOfWeek DayOfWeek { get; set; }
         public string Title { get; set; } = string.Empty;

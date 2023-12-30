@@ -7,35 +7,104 @@
              xmlns:components="clr-namespace:Timetable.Views.Components;assembly=Timetable"
              xmlns:vm="clr-namespace:Timetable.ViewModels;assembly=Timetable"
              x:DataType="vm:ActivitesViewModel">
-  <UserControl.Resources>
-    <Style x:Key="RowStyle" Selector="RowDefinition">
-      <Setter Property="Height" Value="60"/>
-    </Style>
-    <Style x:Key="ColumnStyle" Selector="ColumnDefinition"> 
-      <Setter Property="Width" Value="100" />
-    </Style>
-  </UserControl.Resources>
 
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition/>
-      <RowDefinition Height="40"/>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    
-    <components:Calendar ItemsSource="{Binding Activities}"
-                     HourToRowMapping="StartHour"
-                     DayToColumnMapping="DayOfWeek"
-                     DurationToRowSpanMapping="DurationHours">
-      <components:Calendar.ActivityContent>
-        <DataTemplate>
-          <StackPanel>
-            <TextBlock Text="{Binding Title}" />
-          </StackPanel>
-        </DataTemplate>
-      </components:Calendar.ActivityContent>
-    </components:Calendar>
 
-    <components:CrudMenu Grid.Row="1" />
+    <StackPanel>
+      <!--<Separator Grid.Row="0" Grid.ColumnSpan="3" />-->
+      <StackPanel Grid.Row="0" Height="30" Margin="0 5 0 0" Orientation="Horizontal"  VerticalAlignment="Center" Spacing="10" >
+        <TextBlock Text="{DynamicResource Lang.Activity.Title}" VerticalAlignment="Center" />
+        <TextBox Width="150" Text="{Binding FilterTitle}" />
+
+        <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding Filter}"
+                Content="&#xf002;" Classes="crud" MinWidth="35" />
+        <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding ClearFilter}"
+                Content="&#xf00d;" Classes="crud" MinWidth="35" />
+
+      </StackPanel>
+      <Separator Margin="0 5 0 0"  />
+    </StackPanel>
+
+    <Grid Grid.Row="3" >
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="250" />
+        <ColumnDefinition Width="4" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition/>
+      </Grid.RowDefinitions>
+
+      <!--left side: datagrid-->
+      <StackPanel Grid.RowSpan="2">
+        <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                  SelectionChanged=""
+                  SelectionMode="Extended" IsEnabled="{Binding !IsEdit}"
+                  IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
+                  GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="{DynamicResource Lang.Activity.Title}" Binding="{Binding Title}" />
+          </DataGrid.Columns>
+
+        </DataGrid>
+
+        <ProgressBar IsIndeterminate="True"
+               IsVisible="{Binding IsItemsLoading}"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+
+      </StackPanel>
+
+      <!--separator-->
+      <GridSplitter Grid.Column="1" Grid.RowSpan="2"  Background="LightGray" ResizeDirection="Columns"/>
+
+
+      <!--right side-->
+      <Grid Grid.Column="2"
+            RowDefinitions="*, 50"
+            ColumnDefinitions="5, *, 5">
+
+        <TabControl Grid.Column="1">
+          <TabItem Header="Data" >
+
+            <StackPanel IsEnabled="{Binding IsEdit}" >
+
+              <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                <Label Content="First Name" />
+                <TextBox Width="200"  Text="{Binding EditedItem.FirstName}" />
+
+                <Label Content="Last Name" />
+                <TextBox Width="200"  Text="{Binding EditedItem.LastName}" />
+              </StackPanel>
+
+            </StackPanel>
+
+          </TabItem>
+          <TabItem Header="Calendar">
+            <components:Calendar ItemsSource="{Binding Activities}"
+                             HourToRowMapping="StartHour"
+                             DayToColumnMapping="DayOfWeek"
+                             DurationToRowSpanMapping="DurationHours">
+              <components:Calendar.ActivityContent>
+                <DataTemplate>
+                  <StackPanel>
+                    <TextBlock Text="{Binding Title}" />
+                  </StackPanel>
+                </DataTemplate>
+              </components:Calendar.ActivityContent>
+            </components:Calendar>
+          </TabItem>
+        </TabControl>
+
+        <components:CrudMenu  Grid.Row="4" Grid.Column="1" />
+
+      </Grid>
+
+    </Grid>
 
   </Grid>
 

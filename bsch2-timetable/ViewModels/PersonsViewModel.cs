@@ -1,9 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,73 +13,17 @@ using Timetable.Repositories;
 
 namespace Timetable.ViewModels
 {
-    public partial class PersonsViewModel : ViewModelBase
+    public partial class PersonsViewModel : CrudViewModelBase<Person>
     {
-        private readonly PersonsRepository _personsRepository;
-
-        private bool isEdit;
-        public bool IsEdit
-        {
-            get => isEdit;
-            set
-            {
-                SetProperty(ref isEdit, value);
-
-                IsNewVisible = IsEditVisible = !value;
-                IsSaveVisible = IsCancelVisible = value;
-            }
-        }
-
-        [ObservableProperty]
-        private bool isNewVisible = true;
-
-        [ObservableProperty]
-        private bool isEditVisible;
-
-        [ObservableProperty]
-        private bool isSaveVisible = false;
-
-        [ObservableProperty]
-        private bool isCancelVisible = false;
-
-        [ObservableProperty]
-        private bool isDeleteVisible = false;
-
-        [ObservableProperty]
-        private bool isItemsLoading = false;
+        private readonly PersonsRepository personsRepository;
+        protected override IRepository<Person> Repository => personsRepository;
 
         public PersonsViewModel()
         {
-            _personsRepository = new PersonsRepository();
-            FilterItems();
+            personsRepository = new PersonsRepository(dbPerson => 
+                    (string.IsNullOrEmpty(filterFirstName) || dbPerson.FirstName.ToLower().Contains(filterFirstName.ToLower())) &&
+                    (string.IsNullOrEmpty(filterLastName) || dbPerson.LastName.ToLower().Contains(filterFirstName.ToLower())));
         }
-
-        private Person? selectedItem;
-        public Person? SelectedItem
-        {
-            get => selectedItem;
-            set
-            {
-                SetProperty(ref selectedItem, value);
-                IsEditVisible = value != null;
-                EditedItem = value;
-            }
-        }
-
-        [ObservableProperty]
-        private ObservableCollection<Person> items = new();
-
-
-        private Person? editedItem;
-        public Person? EditedItem
-        {
-            get => editedItem;
-            set
-            {
-                SetProperty(ref editedItem, value);
-            }
-        }
-
 
         [ObservableProperty]
         private string filterFirstName = string.Empty;
@@ -86,23 +31,6 @@ namespace Timetable.ViewModels
         [ObservableProperty]
         private string filterLastName = string.Empty;
 
-        public async void FilterItems()
-        {
-            IsItemsLoading = true;
-            Items = new(await _personsRepository.GetPersons(
-                FilterFirstName.ToLower(),
-                FilterLastName.ToLower()
-                ));
-            IsItemsLoading = false;
-        }
-
-        #region Commands
-
-        [RelayCommand()]
-        public async Task Filter()
-        {
-            await Task.Run(FilterItems);
-        }
 
         [RelayCommand()]
         public void ClearFilter()
@@ -110,19 +38,6 @@ namespace Timetable.ViewModels
             FilterFirstName = FilterLastName = string.Empty;
         }
 
-        [RelayCommand()]
-        public void New()
-        {
-            EditedItem = new Person();
-            IsEdit = true;
-        }
-
-        [RelayCommand()]
-        public void Edit()
-        {
-            EditedItem = _personsRepository.GetPerson(SelectedItem!.Id);
-            IsEdit = true;
-        }
 
         [RelayCommand()]
         public void Delete()
@@ -132,39 +47,5 @@ namespace Timetable.ViewModels
             //FilterItems();
         }
 
-        [RelayCommand()]
-        public void Cancel()
-        {
-            IsEdit = false;
-            int lastSelectedItemId = EditedItem!.Id;
-            FilterItems();
-            
-            var lastSelectedItem = Items.FirstOrDefault(p => p.Id == lastSelectedItemId);
-
-            if (lastSelectedItem == null)
-                return;
-
-            SelectedItem = lastSelectedItem;
-        }
-
-        [RelayCommand()]
-        public void Save()
-        {
-            EditedItem!.Validate();
-
-            var errors = EditedItem.GetErrors().ToList();
-            
-            if (EditedItem.HasErrors)
-            {
-                Debug.WriteLine("Errors");
-                return;
-            }
-
-            _personsRepository.Save(EditedItem!);
-            FilterItems();
-            IsEdit = false;
-        }
-
-        #endregion
     }
 }

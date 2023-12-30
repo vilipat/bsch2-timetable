@@ -8,7 +8,6 @@ namespace Timetable.Views
         public PersonsView()
         {
             InitializeComponent();
-            DataContext = new PersonsViewModel();
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

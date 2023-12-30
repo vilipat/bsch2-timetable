@@ -10,10 +10,6 @@
              x:Class="Timetable.Views.PersonsView" >
 
 
-  <Design.DataContext>
-    <vmdesign:PersonsDesign />
-  </Design.DataContext>
-
   <Grid>
 
     <Grid.RowDefinitions>
@@ -45,29 +41,29 @@
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
-        <RowDefinition/>
+        <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
 
       <!--left side: datagrid-->
-      <StackPanel Grid.RowSpan="2">
-        <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
-                  SelectionChanged=""
-                  SelectionMode="Extended" IsEnabled="{Binding !IsEdit}"
-                  IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
-                  GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
-          <DataGrid.Columns>
-            <DataGridTextColumn Header="{DynamicResource Lang.Person.FirstName}" Binding="{Binding FirstName}" />
-            <DataGridTextColumn Header="{DynamicResource Lang.Person.LastName}" Binding="{Binding LastName}" />
-          </DataGrid.Columns>
 
-        </DataGrid>
+      <ProgressBar IsIndeterminate="True"
+     IsVisible="{Binding IsItemsLoading}"
+     HorizontalAlignment="Center"
+     VerticalAlignment="Center"/>
 
-        <ProgressBar IsIndeterminate="True"
-               IsVisible="{Binding IsItemsLoading}"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
+      <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                SelectionChanged="" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                SelectionMode="Extended" IsEnabled="{Binding !IsEdit}"
+                IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
+                GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{DynamicResource Lang.Person.FirstName}" Binding="{Binding FirstName}" />
+          <DataGridTextColumn Header="{DynamicResource Lang.Person.LastName}" Binding="{Binding LastName}" />
+        </DataGrid.Columns>
 
-      </StackPanel>
+      </DataGrid>
+
+
 
       <!--separator-->
       <GridSplitter Grid.Column="1" Grid.RowSpan="2"  Background="LightGray" ResizeDirection="Columns"/>

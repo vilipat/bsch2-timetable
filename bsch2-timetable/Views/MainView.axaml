@@ -11,14 +11,16 @@
 	<!-- 	<vm:MainWindowViewModel /> -->
 	<!-- </Design.DataContext> -->
 
-	<TabControl VerticalAlignment="Stretch">
+	<TabControl Name="MainTabControl" VerticalAlignment="Stretch" SelectedItem="{Binding SelectedTab}">
 
-		<TabItem Header="Persons">
-			<local:PersonsView />
+    <!-- https://github.com/AvaloniaUI/Avalonia/issues/10958 -->
+
+    <TabItem Header="Persons" DataContext="{Binding PersonsViewModel}" >
+			<local:PersonsView DataContext="{Binding PersonsViewModel}"  />
 		</TabItem>
 
-		<TabItem Header="Activites">
-			<local:ActivitiesView />
+		<TabItem Header="Activites" DataContext="{Binding ActivitesViewModel}" >
+			<local:ActivitiesView DataContext="{Binding ActivitesViewModel}" />
 		</TabItem>
 
 	</TabControl>

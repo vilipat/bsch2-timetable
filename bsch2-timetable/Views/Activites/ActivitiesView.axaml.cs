@@ -14,8 +14,6 @@ namespace Timetable.Views
         public ActivitiesView()
         {
             InitializeComponent();
-            DataContext = new ActivitesViewModel();
         }
-
     }
 }

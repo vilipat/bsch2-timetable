@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 using System.Threading.Tasks;
 using Timetable.Db;
@@ -11,41 +13,50 @@ using Timetable.Models;
 
 namespace Timetable.Repositories
 {
-    internal class PersonsRepository
+    internal class PersonsRepository : IRepository<Person>
     {
-        public Person GetPerson(int personId)
+        public PersonsRepository(Expression<Func<PersonDb, bool>>? filter = null)
+        {
+            if (filter != null)
+                this.filter = filter;
+        }
+
+        private Expression<Func<PersonDb, bool>> filter = _ => true;
+
+        public async Task<Person> GetItem(int id)
         {
             using var db = new TimetableDbContext();
 
-            var person = db.Persons
+            var person = await db.Persons
                 .AsNoTracking()
-                .FirstOrDefault(x => x.Id == personId);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return new Person()
             {
-                Id = personId,
+                Id = id,
                 FirstName = person.FirstName,
                 LastName = person.LastName,
             };
         }
 
-        public async Task<List<Person>> GetPersons(string filterFirstName = "", string filterLastName = "")
+        public async Task<List<Person>> GetItems()
         {
             using var db = new TimetableDbContext();
 
-            return await db.Persons
+            var query = db.Persons
                 .AsNoTracking()
-                .Where(dbPerson => 
-                    (string.IsNullOrEmpty(filterFirstName) ||  dbPerson.FirstName.ToLower().Contains(filterFirstName)) &&
-                    (string.IsNullOrEmpty(filterLastName) || dbPerson.FirstName.ToLower().Contains(filterFirstName)))
+                .Where(filter);
+
+            return await query
                 .Select(dbPers =>
-            new Person()
-            {
-                Id = dbPers.Id,
-                FirstName = dbPers.FirstName,
-                LastName = dbPers.LastName,
-            }).ToListAsync();
+                new Person()
+                {
+                    Id = dbPers.Id,
+                    FirstName = dbPers.FirstName,
+                    LastName = dbPers.LastName,
+                }).ToListAsync();
         }
+
 
         public void Save(Person person)
         {
@@ -71,6 +82,5 @@ namespace Timetable.Repositories
             db.Persons.RemoveRange(
                 db.Persons.Where(dbPerson => personsIds.Contains(dbPerson.Id)));
         }
-
     }
 }
