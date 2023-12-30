@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Timetable.Models
 {
-    public class BaseModel : ObservableObject
+    public class BaseModel : ObservableValidator
     {
+        public void Validate()
+        {
+            ValidateAllProperties();
+        }
+
         public int Id { get; set; }
     }
 }

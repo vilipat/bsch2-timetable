@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Avalonia.Controls;
 using Live.Avalonia;
 using System;
+using System.Linq;
 
 namespace Timetable
 {
@@ -19,7 +20,6 @@ namespace Timetable
 
         public override void OnFrameworkInitializationCompleted()
         {
-
             if (!(ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop))
                 return;
 

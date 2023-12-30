@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -148,11 +150,18 @@ namespace Timetable.ViewModels
         [RelayCommand()]
         public void Save()
         {
+            EditedItem!.Validate();
+
+            var errors = EditedItem.GetErrors().ToList();
+            
+            if (EditedItem.HasErrors)
+            {
+                Debug.WriteLine("Errors");
+                return;
+            }
+
             _personsRepository.Save(EditedItem!);
             FilterItems();
-
-            // TODO: validation
-
             IsEdit = false;
         }
 
