@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+  
+  <system:String x:Key="Lang.Persons">Persons</system:String>
   <system:String x:Key="Lang.Person.FirstName">First Name</system:String>
   <system:String x:Key="Lang.Person.LastName">Last Name</system:String>
 
@@ -14,5 +15,11 @@
 
   <!-- Validation -->
   <system:String x:Key="Lang.Validation.Required">Field is required</system:String>
+
+  <system:String x:Key="Lang.Activities">Activities</system:String>
+  <system:String x:Key="Lang.Title">Title</system:String>
+  <system:String x:Key="Lang.Description">Description</system:String>
+  <system:String x:Key="Lang.Calendar">Calendar</system:String>
+  <system:String x:Key="Lang.Data">Data</system:String>
 
 </ResourceDictionary>
