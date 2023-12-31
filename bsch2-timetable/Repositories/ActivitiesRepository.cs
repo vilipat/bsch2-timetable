@@ -16,6 +16,17 @@ namespace Timetable.Repositories
 {
     class ActivitiesRepository : IRepository<Activity, ActivityFilter>
     {
+        public void Delete(int id)
+        {
+            using var db = new TimetableDbContext();
+            var toRemove = db.Activities.FirstOrDefault(p => p.Id == id);
+
+            if (toRemove == null)
+                return;
+
+            db.Activities.Remove(toRemove);
+        }
+
         public async Task<Activity> GetItem(int id)
         {
             using var db = new TimetableDbContext();
@@ -63,7 +74,19 @@ namespace Timetable.Repositories
 
         public void Save(Activity item)
         {
+            using var db = new TimetableDbContext();
 
+            ActivityDb activityDb = new();
+
+            if (item.Id > 0)
+                activityDb = db.Activities.First(x => x.Id == item.Id);
+            else
+                db.Add(activityDb);
+
+            activityDb.Title = item.Title;
+            activityDb.Description = item.Description;
+
+            db.SaveChanges();
         }
     }
 }

@@ -14,5 +14,7 @@ namespace Timetable.Repositories
         Task<List<TModel>> GetItems(TFilter? filterCriteria);
         Task<TModel> GetItem(int id);
         void Save(TModel item);
+
+        void Delete(int id);
     }
 }

@@ -7,16 +7,29 @@ namespace Timetable.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        public Window MainWindow { get; set; }
+
+        public MainWindowViewModel()
+        {
+            PersonsViewModel = new(this);
+            ActivitesViewModel = new(this);
+            ActivitySlotsViewModel = new(this);
+
+            PersonsViewModel.OnEdit += SetEdit;
+            ActivitesViewModel.OnEdit += SetEdit;
+            ActivitySlotsViewModel.OnEdit += SetEdit;
+
+            // activate filter on app open
+            OnTabSelected(0);
+        }
 
         [ObservableProperty]
-        private PersonsViewModel personsViewModel = new();
+        private PersonsViewModel personsViewModel;
 
         [ObservableProperty]
-        private ActivitiesViewModel activitesViewModel = new();
+        private ActivitiesViewModel activitesViewModel;
 
         [ObservableProperty]
-        private ActivitySlotsViewModel activitySlotsViewModel = new();
+        private ActivitySlotsViewModel activitySlotsViewModel;
 
         private int selectedTabIndex;
 
@@ -50,14 +63,5 @@ namespace Timetable.ViewModels
         private bool isEdit;
         private void SetEdit(bool isEdited) => IsEdit = isEdited;
 
-        public MainWindowViewModel()
-        {
-            PersonsViewModel.OnEdit += SetEdit;
-            ActivitesViewModel.OnEdit += SetEdit;
-            ActivitySlotsViewModel.OnEdit += SetEdit;
-
-            // activate filter on app open
-            OnTabSelected(0);
-        }
     }
 }

@@ -32,8 +32,7 @@ namespace Timetable.ViewModels
         [ObservableProperty]
         private bool isEditVisible = false;
 
-
-        public ActivitySlotsViewModel()
+        public ActivitySlotsViewModel(MainWindowViewModel mv) : base(mv)
         {
             activitySlotsRepository = new ActivitySlotsRepository();
             activitiesRepository = new ActivitiesRepository();

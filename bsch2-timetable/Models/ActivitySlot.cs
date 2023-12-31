@@ -18,7 +18,6 @@ namespace Timetable.Models
 
     public partial class ActivitySlot : BaseModel
     {
-        //[CustomValidation(typeof(ActivitySlot), nameof(ValidateOverlaps))]
         public TimeSpan StartTime
         {
             get => startTime;
@@ -28,7 +27,6 @@ namespace Timetable.Models
         public string StartTimeFormat => StartTime.ToString(@"hh\:mm");
 
 
-        //[CustomValidation(typeof(ActivitySlot), nameof(ValidateOverlaps))]
         public TimeSpan EndTime
         {
             get => endTime;
@@ -38,7 +36,6 @@ namespace Timetable.Models
         public string EndTimeFormat => EndTime.ToString(@"hh\:mm");
 
 
-        //[CustomValidation(typeof(ActivitySlot), nameof(ValidateOverlaps))]
         public DayOfWeek DayOfWeek
         {
             get => dayOfWeek;
@@ -87,7 +84,6 @@ namespace Timetable.Models
         }
 
 
-        //[CustomValidation(typeof(ActivitySlot), nameof(ValidateOverlaps))]
         private WeekPeriod regularity;
         public WeekPeriod Regularity
         {
@@ -129,25 +125,6 @@ namespace Timetable.Models
 
         public ObservableCollection<Person> Persons { get; set; } = new();
 
-        public static ValidationResult ValidateOverlaps(string field, ValidationContext context)
-        {
-            return ValidationResult.Success;
-
-            //bool isValid = ((ActivitySlot)context.ObjectInstance).ValidateSlotOverlap();
-
-            //if (isValid)
-            //{
-            //    return ValidationResult.Success;
-            //}
-
-            //return new ValidationResult("Error, times cannot overlap",
-            //    new List<string>() {
-            //        nameof(StartTime),
-            //        nameof(EndTime),
-            //        nameof(Regularity),
-            //        nameof(DayOfWeek)
-            //    });
-        }
 
         private bool ValidateSlotOverlap()
         {

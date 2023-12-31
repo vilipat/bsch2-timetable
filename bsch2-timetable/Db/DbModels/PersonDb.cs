@@ -15,6 +15,6 @@ namespace Timetable.Db.DbModels
         [Required]
         public string LastName { get; set; } = string.Empty;
 
-        public List<ActivitySlotDb> ActivitySlots { get; } = new();
+        public List<ActivitySlotDb> ActivitySlots { get; set; } = new();
     }
 }

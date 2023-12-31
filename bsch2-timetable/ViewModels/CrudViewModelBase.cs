@@ -26,6 +26,9 @@ namespace Timetable.ViewModels
         /// </summary>
         protected abstract IRepository<TModel, TFilter> Repository { get; }
 
+        protected readonly MainWindowViewModel mv;
+
+        public CrudViewModelBase(MainWindowViewModel mv) => this.mv = mv;
 
         private bool isEdit;
         public bool IsEdit
@@ -35,13 +38,18 @@ namespace Timetable.ViewModels
             {
                 SetProperty(ref isEdit, value);
 
-                IsNewVisible = IsEditVisible = !value;
+                IsDeleteVisible = IsNewVisible = IsEditVisible = !value;
                 IsSaveVisible = IsCancelVisible = value;
                 OnEdit?.Invoke(value);
             }
         }
 
         public event Action<bool>? OnEdit;
+
+        public event Action<bool>? OnCrudProcessing;
+
+        [ObservableProperty]
+        private bool crudButtonsVisible = true;
 
         [ObservableProperty]
         private bool isNewVisible = true;
@@ -73,7 +81,7 @@ namespace Timetable.ViewModels
             set
             {
                 SetProperty(ref selectedItem, value);
-                IsEditVisible = value != null;
+                IsDeleteVisible = IsEditVisible = value != null;
             }
         }
 
@@ -200,6 +208,13 @@ namespace Timetable.ViewModels
                 return;
 
             SelectedItem = lastSelectedItem;
+        }
+
+        [RelayCommand()]
+        public async Task Delete()
+        {
+            Repository.Delete(SelectedItem!.Id);
+            await Filter();
         }
         #endregion
 

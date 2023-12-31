@@ -42,4 +42,8 @@
 
   <system:String x:Key="Lang.Error.TimeslotsOverlap">Timeslots cannot overlap for one activity type</system:String>
 
+  <system:String x:Key="Lang.Error.TimeMargin">The activity must last at least 15 minutes</system:String>
+
+  <system:String x:Key="Lang.Error.PersonSlots">Activities of the person cannot overlap</system:String>
+
 </ResourceDictionary>

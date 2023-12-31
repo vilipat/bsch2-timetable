@@ -1,0 +1,61 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"  d:DesignHeight="450"
+        x:Class="Timetable.TimeslotPickerWindow"
+        Title="TimeslotPickerWindow"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight">
+
+  <Window.Resources>
+    <FontFamily x:Key="FontAwesome">avares://Timetable/Assets#Font Awesome 6 Free</FontFamily>
+  </Window.Resources>
+
+  <DockPanel MinWidth="400" MinHeight="200" >
+
+    <StackPanel DockPanel.Dock="Top">
+      <StackPanel Grid.Row="0" Height="35" Margin="0 5 0 0" Orientation="Horizontal"  VerticalAlignment="Center" Spacing="10" >
+
+        <TextBlock Text="{DynamicResource Lang.Activity}" VerticalAlignment="Center" />
+        <AutoCompleteBox SelectedItem="{Binding ActivityFilter, Mode=TwoWay}" MinWidth="150"
+                         ItemsSource="{Binding Activities}" IsTextCompletionEnabled="True"
+                         FilterMode="Contains" ValueMemberBinding="{Binding FullName}"/>
+
+        <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding Filter}"
+                Content="&#xf002;" Classes="crud" MinWidth="35" />
+        <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding ClearFilter}"
+                Content="&#xf00d;" Classes="crud" MinWidth="35" />
+      </StackPanel>
+      <Separator Margin="0 5 0 0"  />
+    </StackPanel>
+
+    <ListBox ItemsSource="{Binding ActivitySlots}" SelectedItem="{Binding SelectedSlot}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="15">
+              <TextBlock Text="{Binding ActivityTitle}" />
+              <TextBlock Text="{Binding DayOfWeekLoc}" />
+
+              <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="{Binding StartTimeFormat}" />
+                <TextBlock Text="-" />
+                <TextBlock Text="{Binding EndTimeFormat}" />
+              </StackPanel>
+
+              <TextBlock Text="{Binding WeekPeriodLoc}" />
+            </StackPanel>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    
+    <StackPanel DockPanel.Dock="Bottom" Margin="10" Spacing="10" Orientation="Horizontal"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right">
+      <Button x:Name="ConfirmBtn" Command="{Binding PickSlot}" Classes="control btn-prim">Confirm Selected</Button>
+    </StackPanel>
+
+  </DockPanel>
+
+</Window>

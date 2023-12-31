@@ -1,11 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Timetable.Models;
@@ -19,7 +20,7 @@ namespace Timetable.ViewModels
         private readonly PersonsRepository personsRepository;
         protected override IRepository<Person, PersonFilter> Repository => personsRepository;
 
-        public PersonsViewModel()
+        public PersonsViewModel(MainWindowViewModel mv) : base(mv)
         {
             personsRepository = new PersonsRepository();
         }
@@ -30,6 +31,46 @@ namespace Timetable.ViewModels
         [ObservableProperty]
         private string filterLastName = string.Empty;
 
+        [ObservableProperty]
+        private ActivitySlot? selectedActivitySlot;
+
+
+        [RelayCommand()]
+        public async Task AssignSlot()
+        {
+
+            TimeslotPickerWindow pickWindow = new TimeslotPickerWindow();
+
+            TimeslotPickerWindowViewModel pickVm = new TimeslotPickerWindowViewModel(pickWindow, (slot) =>
+            {
+                if (EditedItem!.ActivitySlots.Any(existSl => existSl.Id == slot.Id))
+                    return;
+
+                EditedItem.ActivitySlots.Add(slot);
+            });
+            pickWindow.DataContext = pickVm;
+
+
+            var app = Application.Current;
+            if (app?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+            {
+                await Dispatcher.UIThread.Invoke(async () =>
+                {
+                    await pickWindow.ShowDialog(desktopLifetime.MainWindow);
+                });
+
+            }
+        }
+
+        [RelayCommand()]
+        public void UnassignSlot()
+        {
+            if (SelectedActivitySlot == null)
+                return;
+
+            EditedItem!.ActivitySlots.Remove(SelectedActivitySlot);
+        }
+
 
         [RelayCommand()]
         public void ClearFilter()
@@ -37,19 +78,11 @@ namespace Timetable.ViewModels
             FilterFirstName = FilterLastName = string.Empty;
         }
 
-
-        [RelayCommand()]
-        public void Delete()
-        {
-            //var ids = SelectedItems.Select(p => p.Id).ToArray();
-            //_personsRepository.Delete(ids);
-            //FilterItems();
-        }
-
         protected override PersonFilter GetFilter() => new()
         {
             FirstName = FilterFirstName,
             LastName = FilterLastName
         };
+
     }
 }

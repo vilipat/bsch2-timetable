@@ -113,8 +113,14 @@
           </TabItem>
 
           <!--Calendar-->
-          <TabItem Header="">
-
+          <TabItem Header="{DynamicResource Lang.Persons}">
+            <DataGrid ItemsSource="{Binding EditedItem.Persons}">
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="{DynamicResource Lang.Person.FirstName}" Binding="{Binding FirstName}" />
+                <DataGridTextColumn Header="{DynamicResource Lang.Person.LastName}" Binding="{Binding LastName}" />
+              </DataGrid.Columns>
+            </DataGrid>
           </TabItem>
         </TabControl>
 

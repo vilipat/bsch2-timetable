@@ -17,7 +17,7 @@ namespace Timetable.ViewModels
 
         private readonly ActivitiesRepository activitiesRepository;
 
-        public ActivitiesViewModel()
+        public ActivitiesViewModel(MainWindowViewModel mv) : base(mv)
         {
             activitiesRepository = new ActivitiesRepository();
         }

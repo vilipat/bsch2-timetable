@@ -29,7 +29,7 @@ namespace Timetable.Db.Migrations
 
                     b.HasIndex("PersonsId");
 
-                    b.ToTable("ActivitySlotDbPersonDb");
+                    b.ToTable("ActivitySlotDbPersonDb", (string)null);
                 });
 
             modelBuilder.Entity("Timetable.Db.DbModels.ActivityDb", b =>
@@ -48,7 +48,7 @@ namespace Timetable.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activities");
+                    b.ToTable("Activities", (string)null);
                 });
 
             modelBuilder.Entity("Timetable.Db.DbModels.ActivitySlotDb", b =>
@@ -76,7 +76,7 @@ namespace Timetable.Db.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.ToTable("ActivitySlots");
+                    b.ToTable("ActivitySlots", (string)null);
                 });
 
             modelBuilder.Entity("Timetable.Db.DbModels.PersonDb", b =>
@@ -95,7 +95,7 @@ namespace Timetable.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Persons");
+                    b.ToTable("Persons", (string)null);
                 });
 
             modelBuilder.Entity("ActivitySlotDbPersonDb", b =>

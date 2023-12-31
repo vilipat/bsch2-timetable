@@ -95,8 +95,36 @@
 
           </TabItem>
           <TabItem Header="{DynamicResource Lang.Calendar}">
-            <components:Calendar  Grid.Row="2" Grid.Column="1" >
-            </components:Calendar>
+
+            <Grid Grid.ColumnDefinitions="Auto, *" >
+
+              <DockPanel>
+
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" IsEnabled="{Binding IsEdit}">
+                  <Button Command="{Binding AssignSlot}" Content="Add" />
+                  <Button Command="{Binding UnassignSlot}" Content="Remove"/>
+                </StackPanel>
+
+                <DataGrid Name="SlotsDataGrid" ItemsSource="{Binding EditedItem.ActivitySlots}" SelectedItem="{Binding SelectedActivitySlot}"
+                          SelectionMode="Extended" IsEnabled="{Binding IsEdit}"
+                          IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
+                          GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn Header="{DynamicResource Lang.Activity}" Binding="{Binding ActivityTitle}" />
+                    <DataGridTextColumn Header="{DynamicResource Lang.DayOfWeek}" Binding="{Binding DayOfWeekLoc}" />
+                    <DataGridTextColumn Header="{DynamicResource Lang.From}" Binding="{Binding StartTimeFormat}" />
+                    <DataGridTextColumn Header="{DynamicResource Lang.To}" Binding="{Binding EndTimeFormat}" />
+                    <DataGridTextColumn Header="{DynamicResource Lang.Regularity}" Binding="{Binding WeekPeriodLoc}" />
+                  </DataGrid.Columns>
+
+                </DataGrid>
+              </DockPanel>
+
+
+              <components:Calendar  Grid.Column="1" >
+              </components:Calendar>
+
+            </Grid>
           </TabItem>
         </TabControl>
 

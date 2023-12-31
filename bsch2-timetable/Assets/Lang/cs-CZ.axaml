@@ -41,6 +41,9 @@
   <system:String x:Key="Lang.Days.Sunday">Neděle</system:String>
 
   <system:String x:Key="Lang.Error.TimeslotsOverlap">Časové sloty se nesmí překrývat u jednoho typu aktivity</system:String>
+  
+  <system:String x:Key="Lang.Error.TimeMargin">Aktivita musí trvat alespoň 15 minut</system:String>
+  <system:String x:Key="Lang.Error.PersonSlots">Aktivity osoby se nesmí překrývat</system:String>
 
   
 </ResourceDictionary>
