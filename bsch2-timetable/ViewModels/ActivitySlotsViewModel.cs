@@ -1,11 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Timetable.Models;
 using Timetable.Repositories;
 using Timetable.Shared;
@@ -49,6 +47,12 @@ namespace Timetable.ViewModels
         protected override void AssignSelectionOptions()
         {
             EditedItem!.Activity = Activities.FirstOrDefault(a => a?.Id == EditedItem.ActivityId);
+        }
+
+        [RelayCommand()]
+        public void ClearFilter()
+        {
+            ActivityFilter = null;
         }
     }
 }

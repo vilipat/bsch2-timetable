@@ -17,8 +17,10 @@ namespace Timetable.Models
         [ObservableProperty]
         private string description = string.Empty;
 
+        public string FullName => $"{Title} (id: {Id})";
+
         public List<ActivitySlot> ActivitySlots { get; } = new();
 
-        public override string ToString() => $"{Title} (id: {Id})";
+        public override string ToString() => FullName;
     }
 }

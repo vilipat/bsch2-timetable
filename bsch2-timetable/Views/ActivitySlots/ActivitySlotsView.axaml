@@ -15,10 +15,12 @@
 
     <!--Filter-->
     <StackPanel>
-      <StackPanel Grid.Row="0" Height="30" Margin="0 5 0 0" Orientation="Horizontal"  VerticalAlignment="Center" Spacing="10" >
+      <StackPanel Grid.Row="0" Height="35" Margin="0 5 0 0" Orientation="Horizontal"  VerticalAlignment="Center" Spacing="10" >
 
         <TextBlock Text="{DynamicResource Lang.Activity}" VerticalAlignment="Center" />
-        <ComboBox SelectedItem="{Binding ActivityFilter}" ItemsSource="{Binding Activities}" />
+        <AutoCompleteBox SelectedItem="{Binding ActivityFilter, Mode=TwoWay}" MinWidth="150"
+                         ItemsSource="{Binding Activities}" IsTextCompletionEnabled="True"
+                         FilterMode="Contains" ValueMemberBinding="{Binding FullName}"/>
         
         <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding Filter}"
                 Content="&#xf002;" Classes="crud" MinWidth="35" />
