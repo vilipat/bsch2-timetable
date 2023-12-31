@@ -8,7 +8,7 @@ namespace Timetable.Shared.Filters
 {
     public class PersonFilter
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
     }
 }

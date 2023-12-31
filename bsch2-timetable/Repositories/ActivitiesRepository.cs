@@ -26,7 +26,8 @@ namespace Timetable.Repositories
 
             if (activityDb == null)
             {
-                // return error message
+                // TODO: return error message
+                throw new InvalidOperationException();
             }
 
             return new Activity()
@@ -58,7 +59,7 @@ namespace Timetable.Repositories
 
         public void Save(Activity item)
         {
-            throw new NotImplementedException();
+
         }
     }
 }
