@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -9,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 using Timetable.Models;
 using Timetable.Repositories;
@@ -159,16 +161,17 @@ namespace Timetable.ViewModels
 
             try
             {
-                // repo validation, messagebox needed
+                // repo validation
                 Repository.Save(EditedItem);
             }
             catch (ValidationException e)
             {
-                var lifetime = Application.Current?.ApplicationLifetime;
-                if (lifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+                var app = Application.Current;
+                if (app?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
                 {
                     var msgBox = new MessageBox();
-                    msgBox.Message.Text = e.Message;
+                    var message = ((string?)app?.FindResource(e.Message)) ?? "Unknown Error";
+                    msgBox.Message.Text = message;
 
                     await Dispatcher.UIThread.Invoke(async () =>
                     {
@@ -177,8 +180,8 @@ namespace Timetable.ViewModels
 
                 }
 
+                return;
             }
-
 
             await Filter();
             IsEdit = false;

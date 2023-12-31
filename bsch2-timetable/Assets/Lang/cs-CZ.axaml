@@ -40,5 +40,7 @@
   <system:String x:Key="Lang.Days.Saturday">Sobota</system:String>
   <system:String x:Key="Lang.Days.Sunday">Neděle</system:String>
 
+  <system:String x:Key="Lang.Error.TimeslotsOverlap">Časové sloty se nesmí překrývat u jednoho typu aktivity</system:String>
+
   
 </ResourceDictionary>

@@ -40,4 +40,6 @@
   <system:String x:Key="Lang.Days.Saturday">Saturday</system:String>
   <system:String x:Key="Lang.Days.Sunday">Sunday</system:String>
 
+  <system:String x:Key="Lang.Error.TimeslotsOverlap">Timeslots cannot overlap for one activity type</system:String>
+
 </ResourceDictionary>

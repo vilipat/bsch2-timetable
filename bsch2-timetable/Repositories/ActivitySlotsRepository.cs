@@ -95,7 +95,7 @@ namespace Timetable.Repositories
             foreach (var slot in slotsDb)
             {
                 if (!OverlapActivitySlotValidator.AreSlotsValid(slotDb, slot))
-                    throw new ValidationException("Timeslots overlap");
+                    throw new ValidationException("Lang.Error.TimeslotsOverlap");
             }
 
             db.SaveChanges();
