@@ -7,6 +7,8 @@ namespace Timetable.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
+        public Window MainWindow { get; set; }
+
         [ObservableProperty]
         private PersonsViewModel personsViewModel = new();
 
@@ -16,39 +18,46 @@ namespace Timetable.ViewModels
         [ObservableProperty]
         private ActivitySlotsViewModel activitySlotsViewModel = new();
 
-        private TabItem? selectedTab;
-        public TabItem? SelectedTab
+        private int selectedTabIndex;
+
+        public int SelectedTabIndex
         {
-            get => selectedTab;
+            get { return selectedTabIndex; }
             set
             {
-                selectedTab = value;
-
-                if (value?.DataContext != null)
-                    OnTabSelected(value.DataContext);
+                selectedTabIndex = value;
+                OnTabSelected(value);
             }
         }
 
-        private async void OnTabSelected(object datacontext)
+        private async void OnTabSelected(int index)
         {
-            if (datacontext is PersonsViewModel p)
+            if (index == 0)
             {
-                await p.Filter();
+                await PersonsViewModel.Filter();
             }
-            else if (datacontext is ActivitiesViewModel ac)
+            else if (index == 1)
             {
-                await ac.Filter();
+                await ActivitesViewModel.Filter();
             }
-            else if (datacontext is ActivitySlotsViewModel aslots)
+            else if (index == 2)
             {
-                await aslots.Filter();
+                await ActivitySlotsViewModel.Filter();
             }
         }
+
+        [ObservableProperty]
+        private bool isEdit;
+        private void SetEdit(bool isEdited) => IsEdit = isEdited;
 
         public MainWindowViewModel()
         {
+            PersonsViewModel.OnEdit += SetEdit;
+            ActivitesViewModel.OnEdit += SetEdit;
+            ActivitySlotsViewModel.OnEdit += SetEdit;
+
             // activate filter on app open
-            OnTabSelected(personsViewModel);
+            OnTabSelected(0);
         }
     }
 }

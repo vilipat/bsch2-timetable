@@ -32,6 +32,7 @@ namespace Timetable
                 // Debugging requires pdb loading etc, so we disable live reloading
                 // during a test run with an attached debugger.
                 var window = new MainWindow();
+                desktop.MainWindow = window;
                 window.Content = CreateView(window);
                 window.Show();
             }

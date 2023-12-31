@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Timetable.Models;
 using Timetable.Repositories;
 using Timetable.Shared;
@@ -28,6 +29,10 @@ namespace Timetable.ViewModels
         private readonly ActivitySlotsRepository activitySlotsRepository;
         private readonly ActivitiesRepository activitiesRepository;
 
+        [ObservableProperty]
+        private bool isEditVisible = false;
+
+
         public ActivitySlotsViewModel()
         {
             activitySlotsRepository = new ActivitySlotsRepository();
@@ -44,9 +49,10 @@ namespace Timetable.ViewModels
             Activities = new(await activitiesRepository.GetItems());
         }
 
-        protected override void AssignSelectionOptions()
+        protected override async Task AssignSelectionOptions()
         {
             EditedItem!.Activity = Activities.FirstOrDefault(a => a?.Id == EditedItem.ActivityId);
+            EditedItem.ActivitySlots = await activitySlotsRepository.GetItems();
         }
 
         [RelayCommand()]

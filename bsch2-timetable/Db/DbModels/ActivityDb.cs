@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Timetable.Db.DbModels
 {
-    internal class ActivityDb : BaseDbModel
+    public class ActivityDb : BaseDbModel
     {
         public required string Title { get; set; }
         public required string Description { get; set; }

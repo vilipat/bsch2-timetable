@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Timetable.Db;
 using Timetable.Db.DbModels;
 using Timetable.Models;
+using Timetable.Models.Validators;
 using Timetable.Shared.Filters;
 
 namespace Timetable.Repositories
@@ -81,6 +83,20 @@ namespace Timetable.Repositories
             slotDb.From = TimeOnly.FromTimeSpan(item.StartTime);
             slotDb.To = TimeOnly.FromTimeSpan(item.EndTime);
             slotDb.Period = item.Regularity;
+
+            // validate
+            var slotsDb = db.ActivitySlots.ToList();
+            var edited = db.ActivitySlots.FirstOrDefault(x => x.Id == item.Id);
+
+            if (edited != null)
+                slotsDb.Remove(edited);
+
+
+            foreach (var slot in slotsDb)
+            {
+                if (!OverlapActivitySlotValidator.AreSlotsValid(slotDb, slot))
+                    throw new ValidationException("Timeslots overlap");
+            }
 
             db.SaveChanges();
         }

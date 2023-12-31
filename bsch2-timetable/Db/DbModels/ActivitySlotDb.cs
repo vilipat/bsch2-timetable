@@ -8,7 +8,7 @@ using Timetable.Shared;
 
 namespace Timetable.Db.DbModels
 {
-    internal class ActivitySlotDb : BaseDbModel
+    public class ActivitySlotDb : BaseDbModel
     {
         [Required]
         public DayOfWeek DayOfWeek { get; set; }

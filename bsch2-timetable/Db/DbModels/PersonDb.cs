@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Timetable.Db.DbModels
 {
-    internal class PersonDb : BaseDbModel
+    public class PersonDb : BaseDbModel
     {
         [Required]
         public string FirstName { get; set; } = string.Empty;

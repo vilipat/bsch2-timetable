@@ -11,19 +11,19 @@
 	<!-- 	<vm:MainWindowViewModel /> -->
 	<!-- </Design.DataContext> -->
 
-	<TabControl Name="MainTabControl" VerticalAlignment="Stretch" SelectedItem="{Binding SelectedTab}">
+	<TabControl Name="MainTabControl" VerticalAlignment="Stretch"  SelectedIndex="{Binding SelectedTabIndex}">
 
     <!-- https://github.com/AvaloniaUI/Avalonia/issues/10958 -->
 
-    <TabItem Header="{DynamicResource Lang.Persons}" DataContext="{Binding PersonsViewModel}" >
+    <TabItem IsEnabled="{Binding !IsEdit}" Header="{DynamicResource Lang.Persons}"  >
 			<local:PersonsView DataContext="{Binding PersonsViewModel}"  />
 		</TabItem>
 
-		<TabItem Header="{DynamicResource Lang.Activities}" DataContext="{Binding ActivitesViewModel}" >
+		<TabItem IsEnabled="{Binding !IsEdit}" Header="{DynamicResource Lang.Activities}"  >
 			<local:ActivitiesView DataContext="{Binding ActivitesViewModel}" />
 		</TabItem>
 
-    <TabItem Header="{DynamicResource Lang.ActivitySlots}" DataContext="{Binding ActivitySlotsViewModel}" >
+    <TabItem IsEnabled="{Binding !IsEdit}" Header="{DynamicResource Lang.ActivitySlots}" >
       <local:ActivitySlotsView DataContext="{Binding ActivitySlotsViewModel}" />
     </TabItem>
 

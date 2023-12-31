@@ -1,14 +1,19 @@
-﻿using Avalonia.Threading;
+﻿using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Timetable.Models;
 using Timetable.Repositories;
+using Timetable.Views;
+
 
 namespace Timetable.ViewModels
 {
@@ -30,8 +35,11 @@ namespace Timetable.ViewModels
 
                 IsNewVisible = IsEditVisible = !value;
                 IsSaveVisible = IsCancelVisible = value;
+                OnEdit?.Invoke(value);
             }
         }
+
+        public event Action<bool>? OnEdit;
 
         [ObservableProperty]
         private bool isNewVisible = true;
@@ -71,14 +79,14 @@ namespace Timetable.ViewModels
         {
             IsItemLoading = true;
             EditedItem = await Repository.GetItem(itemId);
-            AssignSelectionOptions();
+            await AssignSelectionOptions();
             IsItemLoading = false;
         }
 
         /// <summary>
         /// Assign selected values in comboboxes, etc.
         /// </summary>
-        protected virtual void AssignSelectionOptions() { }
+        protected virtual async Task AssignSelectionOptions() { }
 
         [ObservableProperty]
         private ObservableCollection<TModel> items = new();
@@ -114,20 +122,26 @@ namespace Timetable.ViewModels
         protected virtual void LoadSelectionOptions() { }
 
         [RelayCommand()]
-        public void New()
+        public async Task New()
         {
+            IsItemsLoading = true;
             EditedItem = new();
             LoadSelectionOptions();
+            await AssignSelectionOptions();
             IsEdit = true;
+            IsItemsLoading = false;
         }
 
 
         [RelayCommand()]
         public async Task Edit()
         {
+            IsItemsLoading = true;
             EditedItem = await Repository.GetItem(SelectedItem!.Id);
             LoadSelectionOptions();
+            await AssignSelectionOptions();
             IsEdit = true;
+            IsItemsLoading = false;
         }
 
         [RelayCommand()]
@@ -139,10 +153,33 @@ namespace Timetable.ViewModels
 
             if (EditedItem.HasErrors)
             {
+                // client side validation
                 return;
             }
 
-            Repository.Save(EditedItem);
+            try
+            {
+                // repo validation, messagebox needed
+                Repository.Save(EditedItem);
+            }
+            catch (ValidationException e)
+            {
+                var lifetime = Application.Current?.ApplicationLifetime;
+                if (lifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+                {
+                    var msgBox = new MessageBox();
+                    msgBox.Message.Text = e.Message;
+
+                    await Dispatcher.UIThread.Invoke(async () =>
+                    {
+                        await msgBox.ShowDialog(desktopLifetime.MainWindow);
+                    });
+
+                }
+
+            }
+
+
             await Filter();
             IsEdit = false;
         }

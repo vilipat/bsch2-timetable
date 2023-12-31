@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Timetable.Db.DbModels
 {
-    internal class BaseDbModel
+    public class BaseDbModel
     {
         [Key]
         public int Id { get; set; }
