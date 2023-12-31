@@ -13,15 +13,18 @@ namespace Timetable.ViewModels
         [ObservableProperty]
         private ActivitiesViewModel activitesViewModel = new();
 
-        private TabItem selectedTab;
-        public TabItem SelectedTab
+        [ObservableProperty]
+        private ActivitySlotsViewModel activitySlotsViewModel = new();
+
+        private TabItem? selectedTab;
+        public TabItem? SelectedTab
         {
             get => selectedTab;
             set
             {
                 selectedTab = value;
 
-                if (value.DataContext != null)
+                if (value?.DataContext != null)
                     OnTabSelected(value.DataContext);
             }
         }
@@ -32,9 +35,13 @@ namespace Timetable.ViewModels
             {
                 await p.Filter();
             }
-            else if (datacontext is ActivitiesViewModel a)
+            else if (datacontext is ActivitiesViewModel ac)
             {
-                await a.Filter();
+                await ac.Filter();
+            }
+            else if (datacontext is ActivitySlotsViewModel aslots)
+            {
+                await aslots.Filter();
             }
         }
 

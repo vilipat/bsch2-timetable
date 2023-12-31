@@ -3,35 +3,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Timetable.Views.ActivitiesView"
+             x:Class="Timetable.Views.ActivitySlotsView"
              xmlns:components="clr-namespace:Timetable.Views.Components;assembly=Timetable"
-             xmlns:vm="clr-namespace:Timetable.ViewModels;assembly=Timetable"
-             x:DataType="vm:ActivitiesViewModel">
-
+             xmlns:models="clr-namespace:Timetable.Models">
+  
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="50"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
+    <!--Filter-->
     <StackPanel>
-      <!--<Separator Grid.Row="0" Grid.ColumnSpan="3" />-->
       <StackPanel Grid.Row="0" Height="30" Margin="0 5 0 0" Orientation="Horizontal"  VerticalAlignment="Center" Spacing="10" >
-        <TextBlock Text="{DynamicResource Lang.Title}" VerticalAlignment="Center" />
-        <TextBox Width="150" Text="{Binding FilterTitle}" />
 
+        <TextBlock Text="{DynamicResource Lang.Activity}" VerticalAlignment="Center" />
+        <ComboBox SelectedItem="{Binding ActivityFilter}" ItemsSource="{Binding Activities}" />
+        
         <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding Filter}"
                 Content="&#xf002;" Classes="crud" MinWidth="35" />
         <Button FontFamily="{StaticResource FontAwesome}" Command="{Binding ClearFilter}"
                 Content="&#xf00d;" Classes="crud" MinWidth="35" />
-
       </StackPanel>
       <Separator Margin="0 5 0 0"  />
     </StackPanel>
 
     <Grid Grid.Row="3" >
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="250" />
+        <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="4" />
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
@@ -51,7 +50,11 @@
                 IsReadOnly="True" CanUserResizeColumns="True" IsVisible="{Binding !IsItemsLoading}"
                 GridLinesVisibility="All" ClipboardCopyMode="ExcludeHeader">
         <DataGrid.Columns>
-          <DataGridTextColumn Header="{DynamicResource Lang.Title}" Binding="{Binding Title}" />
+          <DataGridTextColumn Header="{DynamicResource Lang.Activity}" Binding="{Binding ActivityTitle}" />
+          <DataGridTextColumn Header="{DynamicResource Lang.DayOfWeek}" Binding="{Binding DayOfWeekLoc}" />
+          <DataGridTextColumn Header="{DynamicResource Lang.From}" Binding="{Binding StartTimeFormat}" />
+          <DataGridTextColumn Header="{DynamicResource Lang.To}" Binding="{Binding EndTimeFormat}" />
+          <DataGridTextColumn Header="{DynamicResource Lang.Regularity}" Binding="{Binding WeekPeriodLoc}" />
         </DataGrid.Columns>
 
       </DataGrid>
@@ -76,34 +79,40 @@
           <!--Data-->
           <TabItem Header="{DynamicResource Lang.Data}" >
 
-            <StackPanel IsEnabled="{Binding IsEdit}" >
+            <ScrollViewer VerticalScrollBarVisibility="Auto" >
 
-              <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                <Label Content="{DynamicResource Lang.Title}" />
-                <TextBox Width="200"  Text="{Binding EditedItem.Title}"/>
+              <StackPanel IsEnabled="{Binding IsEdit}" Orientation="Vertical" HorizontalAlignment="Left">
 
-                <Label Content="{DynamicResource Lang.Description}" />
-                <TextBox Width="200" Height="200"  Text="{Binding EditedItem.Description}" TextWrapping="Wrap" />
+                <Label Content="{DynamicResource Lang.Activity}" />
+                <ComboBox Width="300" SelectedItem="{Binding EditedItem.Activity}" ItemsSource="{Binding Activities}" />
+
+                <Label Content="{DynamicResource Lang.DayOfWeek}" />
+                <ComboBox Width="150" SelectedValue="{Binding EditedItem.DayOfWeek}" 
+                          DisplayMemberBinding="{Binding Value}"
+                          SelectedValueBinding="{Binding Key}"
+                          ItemsSource="{Binding DayOfWeeksLoc}" />
+                
+                <Label Content="{DynamicResource Lang.Regularity}" />
+                <ComboBox Width="150" SelectedValue="{Binding EditedItem.Regularity}"
+                          DisplayMemberBinding="{Binding Value}"
+                          SelectedValueBinding="{Binding Key}"
+                          ItemsSource="{Binding WeekPeriodsLoc}" />
+                
+                <Label Content="{DynamicResource Lang.From}" />
+                <TimePicker SelectedTime="{Binding EditedItem.StartTime}" />
+
+                <Label Content="{DynamicResource Lang.To}" />
+                <TimePicker SelectedTime="{Binding EditedItem.EndTime}"/>
+
               </StackPanel>
-              
-            </StackPanel>
+
+            </ScrollViewer>
 
           </TabItem>
 
           <!--Calendar-->
-          <TabItem Header="{DynamicResource Lang.Calendar}">
-            <components:Calendar ItemsSource="{Binding Activities}"
-                             HourToRowMapping="StartHour"
-                             DayToColumnMapping="DayOfWeek"
-                             DurationToRowSpanMapping="DurationHours">
-              <components:Calendar.ActivityContent>
-                <DataTemplate>
-                  <StackPanel>
-                    <TextBlock Text="{Binding Title}" />
-                  </StackPanel>
-                </DataTemplate>
-              </components:Calendar.ActivityContent>
-            </components:Calendar>
+          <TabItem Header="">
+
           </TabItem>
         </TabControl>
 
@@ -114,6 +123,4 @@
     </Grid>
 
   </Grid>
-
-
 </UserControl>

@@ -16,10 +16,28 @@
   <!-- Validation -->
   <system:String x:Key="Lang.Validation.Required">Field is required</system:String>
 
+  <system:String x:Key="Lang.Activity">Activity</system:String>
   <system:String x:Key="Lang.Activities">Activities</system:String>
   <system:String x:Key="Lang.Title">Title</system:String>
   <system:String x:Key="Lang.Description">Description</system:String>
   <system:String x:Key="Lang.Calendar">Calendar</system:String>
   <system:String x:Key="Lang.Data">Data</system:String>
+  <system:String x:Key="Lang.DayOfWeek">Day</system:String>
+  <system:String x:Key="Lang.From">From</system:String>
+  <system:String x:Key="Lang.To">To</system:String>
+  <system:String x:Key="Lang.Regularity">Regularity</system:String>
+  <system:String x:Key="Lang.Regularity.Every">Every</system:String>
+  <system:String x:Key="Lang.Regularity.Odd">Odd</system:String>
+  <system:String x:Key="Lang.Regularity.Even">Even</system:String>
+  
+  <system:String x:Key="Lang.ActivitySlots">Timeslots</system:String>
+
+  <system:String x:Key="Lang.Days.Monday">Monday</system:String>
+  <system:String x:Key="Lang.Days.Tuesday">Tuesday</system:String>
+  <system:String x:Key="Lang.Days.Wednesday">Wednesday</system:String>
+  <system:String x:Key="Lang.Days.Thursday">Thursday</system:String>
+  <system:String x:Key="Lang.Days.Friday">Friday</system:String>
+  <system:String x:Key="Lang.Days.Saturday">Saturday</system:String>
+  <system:String x:Key="Lang.Days.Sunday">Sunday</system:String>
 
 </ResourceDictionary>

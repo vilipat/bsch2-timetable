@@ -71,9 +71,14 @@ namespace Timetable.ViewModels
         {
             IsItemLoading = true;
             EditedItem = await Repository.GetItem(itemId);
+            AssignSelectionOptions();
             IsItemLoading = false;
         }
 
+        /// <summary>
+        /// Assign selected values in comboboxes, etc.
+        /// </summary>
+        protected virtual void AssignSelectionOptions() { }
 
         [ObservableProperty]
         private ObservableCollection<TModel> items = new();
@@ -96,16 +101,23 @@ namespace Timetable.ViewModels
         public async Task Filter()
         {
             IsItemsLoading = true;
+            LoadSelectionOptions();
             Items = new(await Repository.GetItems(GetFilter()));
             IsItemsLoading = false;
         }
 
         protected abstract TFilter GetFilter();
 
+        /// <summary>
+        /// Load additional itemsources for comboboxes, etc
+        /// </summary>
+        protected virtual void LoadSelectionOptions() { }
+
         [RelayCommand()]
         public void New()
         {
             EditedItem = new();
+            LoadSelectionOptions();
             IsEdit = true;
         }
 
@@ -114,6 +126,7 @@ namespace Timetable.ViewModels
         public async Task Edit()
         {
             EditedItem = await Repository.GetItem(SelectedItem!.Id);
+            LoadSelectionOptions();
             IsEdit = true;
         }
 

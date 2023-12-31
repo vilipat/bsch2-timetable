@@ -23,5 +23,9 @@
 			<local:ActivitiesView DataContext="{Binding ActivitesViewModel}" />
 		</TabItem>
 
+    <TabItem Header="{DynamicResource Lang.ActivitySlots}" DataContext="{Binding ActivitySlotsViewModel}" >
+      <local:ActivitySlotsView DataContext="{Binding ActivitySlotsViewModel}" />
+    </TabItem>
+
 	</TabControl>
 </UserControl>

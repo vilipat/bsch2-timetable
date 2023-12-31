@@ -16,10 +16,29 @@
   <!-- Validation -->
   <system:String x:Key="Lang.Validation.Required">Pole je povinné</system:String>
 
+  <system:String x:Key="Lang.Activity">Aktivita</system:String>
   <system:String x:Key="Lang.Activities">Aktivity</system:String>
   <system:String x:Key="Lang.Title">Název</system:String>
   <system:String x:Key="Lang.Description">Popis</system:String>
   <system:String x:Key="Lang.Calendar">Kalendář</system:String>
   <system:String x:Key="Lang.Data">Data</system:String>
+  <system:String x:Key="Lang.DayOfWeek">Den</system:String>
+  <system:String x:Key="Lang.From">Od</system:String>
+  <system:String x:Key="Lang.To">Do</system:String>
+  <system:String x:Key="Lang.Regularity">Pravidelnost</system:String>
+  <system:String x:Key="Lang.Regularity.Every">Každý</system:String>
+  <system:String x:Key="Lang.Regularity.Odd">Lichý</system:String>
+  <system:String x:Key="Lang.Regularity.Even">Sudý</system:String>
 
+  <system:String x:Key="Lang.ActivitySlots">Časové Sloty</system:String>
+
+  <system:String x:Key="Lang.Days.Monday">Pondělí</system:String>
+  <system:String x:Key="Lang.Days.Tuesday">Úterý</system:String>
+  <system:String x:Key="Lang.Days.Wednesday">Středa</system:String>
+  <system:String x:Key="Lang.Days.Thursday">Čtvrtek</system:String>
+  <system:String x:Key="Lang.Days.Friday">Pátek</system:String>
+  <system:String x:Key="Lang.Days.Saturday">Sobota</system:String>
+  <system:String x:Key="Lang.Days.Sunday">Neděle</system:String>
+
+  
 </ResourceDictionary>

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Timetable.Db;
 
@@ -10,9 +11,11 @@ using Timetable.Db;
 namespace Timetable.Db.Migrations
 {
     [DbContext(typeof(TimetableDbContext))]
-    partial class DbContextModelSnapshot : ModelSnapshot
+    [Migration("20231231142313_ActivitySlot-Period")]
+    partial class ActivitySlotPeriod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");

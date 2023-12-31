@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +10,23 @@ namespace Timetable.Db.DbModels
 {
     internal class ActivitySlotDb : BaseDbModel
     {
-        public required TimeOnly From { get; set; }
-        public required TimeOnly To { get; set; }
+        [Required]
+        public DayOfWeek DayOfWeek { get; set; }
 
-        public required WeekPeriod Period { get; set; }
+        [Required]
+        public TimeOnly From { get; set; }
+        
+        [Required]
+        public TimeOnly To { get; set; }
 
-        public required ActivityDb Activity { get; set; }
+        [Required]
+        public WeekPeriod Period { get; set; }
+
+        [Required]
+        public int ActivityId { get; set; }
+        public ActivityDb? Activity { get; set; }
+
+
         public List<PersonDb> Persons { get; } = new();
     }
 }

@@ -32,7 +32,8 @@ namespace Timetable.Repositories
 
             if (personDb == null)
             {
-                // return error message
+                // TODO: return error message
+                throw new InvalidOperationException();
             }
 
             return new Person()

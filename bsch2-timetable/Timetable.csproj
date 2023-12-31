@@ -26,6 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Watch Remove="Views\ActivitySlots\ActivitySlotsView.axaml" />
 	  <Watch Remove="Views\Components\Calendar.axaml" />
 	</ItemGroup>
 

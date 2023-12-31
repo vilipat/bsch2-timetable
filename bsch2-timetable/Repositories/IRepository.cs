@@ -11,7 +11,7 @@ namespace Timetable.Repositories
 {
     public interface IRepository<TModel, TFilter> where TModel : BaseModel
     {
-        Task<List<TModel>> GetItems(TFilter filterCriteria);
+        Task<List<TModel>> GetItems(TFilter? filterCriteria);
         Task<TModel> GetItem(int id);
         void Save(TModel item);
     }

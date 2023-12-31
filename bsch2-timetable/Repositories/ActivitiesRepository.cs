@@ -38,15 +38,19 @@ namespace Timetable.Repositories
             };
         }
 
-        public async Task<List<Activity>> GetItems(ActivityFilter filterCriteria)
+        public async Task<List<Activity>> GetItems(ActivityFilter? filterCriteria = null)
         {
             using var db = new TimetableDbContext();
 
-            var filterTitle = filterCriteria.Title;
-
             var query = db.Activities
-                .AsNoTracking()
-                .Where(dbAct => dbAct.Title.ToLower().Contains(filterTitle.ToLower()));
+                .AsNoTracking();
+
+            if (filterCriteria != null)
+            {
+                var filterTitle = filterCriteria.Title;
+                query = query.Where(dbAct => 
+                    dbAct.Title.ToLower().Contains(filterTitle.ToLower()));
+            }
 
             return await query
                 .Select(dbActivity =>

@@ -27,7 +27,7 @@
               Classes="crud" Content="{DynamicResource Lang.Buttons.Cancel}" />
 
           <Button Command="{Binding Save}" IsVisible="{Binding IsSaveVisible}"
-              Classes="crud" Content="{DynamicResource Lang.Buttons.Save}" />
+              Classes="btn-add crud" Content="{DynamicResource Lang.Buttons.Save}" />
 
           <ContentPresenter Content="{TemplateBinding AdditionalButtons}" />
 

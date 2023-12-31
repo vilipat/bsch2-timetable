@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.Styling;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -52,6 +53,8 @@ namespace Timetable.Shared
             var loadedRes = (ResourceDictionary)AvaloniaXamlLoader.Load(new Uri($"{LangPath}{langDictionaries[targetLang]}.axaml"));
 
             mergedDictionaries.Add(loadedRes);
+
+            //CultureInfo.CurrentCulture = new CultureInfo(langDictionaries[targetLang]);
         }
     }
 }
